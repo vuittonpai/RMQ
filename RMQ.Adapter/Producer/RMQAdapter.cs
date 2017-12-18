@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Threading;
+using RMQ.Utility.Nlog;
 
 namespace RMQ.Adapter.Producer
 {
@@ -17,17 +18,10 @@ namespace RMQ.Adapter.Producer
         static RMQAdapter(){}
         public static RMQAdapter Instance { get { return _instance; } }
 
+        private NLogService logger = new NLogService("RMQ.Adapter.RMQAdapter");
 
         public override bool IsConnected => (_connection!=null && _connection.IsOpen);
-
-        //public override void AcknowledgeMessage(ulong deliveryTag)
-        //{
-        //    //有用到嗎? Producer
-        //    if (!IsConnected) Connect();
-        //    using (var channel = _connection.CreateModel())
-        //        channel.BasicAck(deliveryTag, false);
-        //}
-
+        
         public override void Connect()
         {
             var connectionFactory = new ConnectionFactory
@@ -83,32 +77,39 @@ namespace RMQ.Adapter.Producer
 
                     channel.BasicPublish(string.Empty, queueName,
                         messageProperties ?? RabbitMQProperties.CreateDefaultProperties(channel), payload);
+
+                    logger.Info($"{DateTime.Now} Info: 成功傳送訊息。 QueueName= {queueName} Message: {message}");
                 }
             }
             catch(TimeoutException timeout)
             {
+                logger.Error($"{DateTime.Now} Error: TimeoutException={ timeout.Message} StackTrace: {timeout.StackTrace}");
                 this.Disconnect();
                 Thread.Sleep(3000);
                 Restart();
             }
             catch (Exception ex)
             {
-
+                logger.Error($"{DateTime.Now}Error: TimeoutException={ ex.Message} StackTrace: {ex.StackTrace}");
+                this.Disconnect();
             }
             
         }
         
         private void Connection_CallbackException(object sender, CallbackExceptionEventArgs e)
         {
+            logger.Error($"{DateTime.Now} Error: connection_CallbackException()。 sender= {sender} Message: {e.Exception.Message}");
             Console.WriteLine("connection_CallbackException " + e.Exception.StackTrace);
         }
         private void Connection_ConnectionShutdown(object connection, ShutdownEventArgs reason)
         {
+            logger.Info($"{DateTime.Now} Info: Connection_ConnectionShutdown。 connection= {connection} Message: {reason.Cause}");
             Console.WriteLine("connection_ConnectionShutdown " + reason.ToString());
             //ReStart();
         }
         private void Channel_ModelShutdown(object model, ShutdownEventArgs reason)
         {
+            //logger.Info($"{DateTime.Now} Info: CHANNEL__MODEL_SHUTDOWN。 model= {model} Message: {reason.Cause}");
             Console.WriteLine("CHANNEL__MODEL_SHUTDOWN " + reason.ToString());
         }
 

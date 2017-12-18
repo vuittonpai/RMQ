@@ -56,5 +56,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RMQ.Utility\RMQ.Utility.csproj">
+      <Project>{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}</Project>
+      <Name>RMQ.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

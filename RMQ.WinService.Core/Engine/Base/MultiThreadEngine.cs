@@ -1,8 +1,10 @@
 ﻿
+using RMQ.Utility.Nlog;
 using RMQ.WinService.Core.Engine.Module;
 using RMQ.WinService.Core.Schedule.Base;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 
 
@@ -87,6 +89,7 @@ namespace RMQ.WinService.Core.Engine.Base
                 }
                 catch (Exception ex)
                 {
+                    NLogService.Instance.Error($"{DateTime.Now} Info: MainScheduleThread()休息五秒。Message: {ex.Message}。StackTrace= {ex.StackTrace}");
                     System.Threading.Thread.Sleep(5000);
                 }
             }
@@ -104,15 +107,21 @@ namespace RMQ.WinService.Core.Engine.Base
                     _Schedules.Add(schedule);
                     schedule._OnFinished += new ScheduleBase.FinishedHandler(ScheduleFinish);//實作Schedule  Finish
                                         
-                    //Thread thread = new Thread(schedule.GO);
-                    //thread.Start();
+                    
                     ThreadCounter++;
-                    schedule.GO();//測試用
-        
+                    if (Debugger.IsAttached)
+                        schedule.GO();//測試用
+                    else
+                    {
+                        Thread thread = new Thread(schedule.GO);
+                        thread.Start();
+                    }
+
                 }
             }
             else
             {
+                ScheduleTaskModule.NoMessage(_IntervalSec);
                 System.Threading.Thread.Sleep(_IntervalSec * 1000);
             }
         }

@@ -3,6 +3,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RMQ.Adapter.EventArg;
 using RMQ.Adapter.Producer;
+using RMQ.Utility.Nlog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace RMQ.Adapter.Consumer
             , IDictionary<string, object> queueArgs = null, int ConsumerNumber = 2, int MessageNumber = 10)
         : base(queueName, timeout, prefetchCount, noAck, queueArgs)
         { }
+
+        private NLogService logger = new NLogService("RMQ.Adapter.RMQConsumer");
 
         public override void StartAsync(AMQPAdapter amqpAdapter)
         {
@@ -71,6 +74,7 @@ namespace RMQ.Adapter.Consumer
                             var consumer = new EventingBasicConsumer(channel);
                             consumer.Received += OnConsumer_ReceivedII;
                             var test = channel.BasicConsume(queueName, noAck, consumer);
+                            logger.Info($"{DateTime.Now} Info: Consumer啟動。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
                         }
                         else
                         {
@@ -115,13 +119,17 @@ namespace RMQ.Adapter.Consumer
                     //var messageIsAvailable = consumer.Queue.Dequeue(1 * 1000, out args);
 
                     var result = channel.BasicGet(queueName, false);
+                    
+
                     if (result != null)
                     {
                         //returnMessage = Encoding.UTF8.GetString(args.Body);
                         IBasicProperties props = result.BasicProperties;
                         byte[] body = result.Body;
                         returnMessage = Encoding.UTF8.GetString(body);
+                        logger.Info($"{DateTime.Now} {channel.ChannelNumber} Info: 接收訊息。 QueueName= {queueName} Message: {returnMessage}");
                         channel.BasicAck(result.DeliveryTag, false);
+                        logger.Info($"{DateTime.Now} {channel.ChannelNumber} Info: 回應收到。 QueueName= {queueName} Message: {returnMessage}");
                     }
                 }
                 return returnMessage;
@@ -134,6 +142,7 @@ namespace RMQ.Adapter.Consumer
             }
             catch (Exception e)
             {
+                logger.Error($"{DateTime.Now}Error: TimeoutException={ e.Message} StackTrace: {e.StackTrace}");
                 Console.WriteLine(e);
                 OnMessageReceived(new MessageReceivedEventArgs
                 {
@@ -152,6 +161,7 @@ namespace RMQ.Adapter.Consumer
             {
                 var consumer = sender as EventingBasicConsumer;
                 var message = Encoding.UTF8.GetString(e.Body);
+                logger.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
                 //把這個做成abstract, 轉由前面去處理
                 //因為又抓出一層interface，再將他往外丟
                 OnMessageReceived(new MessageReceivedEventArgs
@@ -172,6 +182,7 @@ namespace RMQ.Adapter.Consumer
             }
             
         }
+
         // 方法一: 使用EventHandler<T> 取接，
         //private void Consumer_Received(object sender, BasicDeliverEventArgs e)
         //{
@@ -205,8 +216,7 @@ namespace RMQ.Adapter.Consumer
         //}
         public void AcknowledgeMessage(ulong deliveryTag, IModel channel)
         {
-            //channel.BasicAck(e.DeliveryTag, false); //手動Ack：用來確認消息已經被消費完畢了
-            //BasicGetResult result = channel.BasicGet(queue, false);
+            logger.Info($"{DateTime.Now} Info: 回應收到。DeliveryTag: {deliveryTag}。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
             channel.BasicAck(deliveryTag, false);
         }
 
@@ -218,6 +228,7 @@ namespace RMQ.Adapter.Consumer
 
         private void Channel_ModelShutdown(object model, ShutdownEventArgs reason)
         {
+            //logger.Error($"{DateTime.Now} Error: CHANNEL__MODEL_SHUTDOWN()。 model= {model} Message: {reason.Cause}");
             Console.WriteLine("CHANNEL__MODEL_SHUTDOWN " + reason.ToString());
         }
 

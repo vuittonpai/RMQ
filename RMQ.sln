@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.Web", "RMQ.Web\RMQ.Web.csproj", "{FD3D4D22-876F-4062-8607-DA92559BCE99}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.DataClass", "RMQ.DataClass\RMQ.DataClass.csproj", "{DA1928B5-F751-49A8-842F-CBABECA32BE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.WinService.Core", "RMQ.WinService.Core\RMQ.WinService.Core.csproj", "{9CF50EC6-02AC-4056-AAE9-CFC55E6E3E7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.Utility", "RMQ.Utility\RMQ.Utility.csproj", "{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{9CF50EC6-02AC-4056-AAE9-CFC55E6E3E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CF50EC6-02AC-4056-AAE9-CFC55E6E3E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CF50EC6-02AC-4056-AAE9-CFC55E6E3E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

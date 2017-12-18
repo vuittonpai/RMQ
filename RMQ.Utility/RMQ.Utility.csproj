@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9CF50EC6-02AC-4056-AAE9-CFC55E6E3E7B}</ProjectGuid>
+    <ProjectGuid>{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RMQ.WinService.Core</RootNamespace>
-    <AssemblyName>RMQ.WinService.Core</AssemblyName>
+    <RootNamespace>RMQ.Utility</RootNamespace>
+    <AssemblyName>RMQ.Utility</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,12 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,35 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\Adapter\ScheduleTaskAdapter.cs" />
-    <Compile Include="Engine\Adapter\ScheduleTaskService.cs" />
-    <Compile Include="Engine\Base\MultiThreadEngine.cs" />
-    <Compile Include="Engine\Module\ScheduleTaskModule.cs" />
-    <Compile Include="Engine\PushMessageEngine.cs" />
-    <Compile Include="Engine\PushMessageService.cs" />
+    <Compile Include="Nlog\LoggingKey.cs" />
+    <Compile Include="Nlog\NLogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Schedule\Base\ScheduleBase.cs" />
-    <Compile Include="Schedule\PushMessageSchedule.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RMQ.Adapter\RMQ.Adapter.csproj">
-      <Project>{e7ab868f-2527-4014-a92d-d3705e30af0f}</Project>
-      <Name>RMQ.Adapter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RMQ.Core\RMQ.Core.csproj">
-      <Project>{42472B50-D972-4511-9635-ADF0681B868C}</Project>
-      <Name>RMQ.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RMQ.DataClass\RMQ.DataClass.csproj">
-      <Project>{da1928b5-f751-49a8-842f-cbabeca32be1}</Project>
-      <Name>RMQ.DataClass</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RMQ.Utility\RMQ.Utility.csproj">
-      <Project>{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}</Project>
-      <Name>RMQ.Utility</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

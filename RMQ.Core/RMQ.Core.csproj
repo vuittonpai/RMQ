@@ -37,6 +37,7 @@
       <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,21 +47,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consumer\AMQPComsumer.cs" />
+    <Compile Include="Consumer\RMQConsumer.cs" />
+    <Compile Include="DTO\ScheduleTask.cs" />
+    <Compile Include="EventArg\MessageReceivedEventArgs.cs" />
     <Compile Include="IMessageQueueAdapter.cs" />
     <Compile Include="IMessageQueueProducerAdapter.cs" />
     <Compile Include="MessageQueueAdapter.cs" />
     <Compile Include="MessageQueueProducerAdapter.cs" />
     <Compile Include="MicroService\IMicroService.cs" />
     <Compile Include="MicroService\PushNotificationService.cs" />
+    <Compile Include="Producer\AMQPAdapter.cs" />
+    <Compile Include="Producer\RMQAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RMQ.Adapter\RMQ.Adapter.csproj">
-      <Project>{e7ab868f-2527-4014-a92d-d3705e30af0f}</Project>
-      <Name>RMQ.Adapter</Name>
+    <ProjectReference Include="..\RMQ.Utility\RMQ.Utility.csproj">
+      <Project>{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}</Project>
+      <Name>RMQ.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

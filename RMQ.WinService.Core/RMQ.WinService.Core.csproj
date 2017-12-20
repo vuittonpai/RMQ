@@ -57,17 +57,9 @@
     <Compile Include="Schedule\PushMessageSchedule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RMQ.Adapter\RMQ.Adapter.csproj">
-      <Project>{e7ab868f-2527-4014-a92d-d3705e30af0f}</Project>
-      <Name>RMQ.Adapter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RMQ.Core\RMQ.Core.csproj">
       <Project>{42472B50-D972-4511-9635-ADF0681B868C}</Project>
       <Name>RMQ.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RMQ.DataClass\RMQ.DataClass.csproj">
-      <Project>{da1928b5-f751-49a8-842f-cbabeca32be1}</Project>
-      <Name>RMQ.DataClass</Name>
     </ProjectReference>
     <ProjectReference Include="..\RMQ.Utility\RMQ.Utility.csproj">
       <Project>{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}</Project>

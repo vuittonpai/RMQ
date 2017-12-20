@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
+using RMQ.Core.DTO;
 using RMQ.Core.MicroService;
 using RMQ.Core.Producer;
-using RMQ.DataClass.DTO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace RMQ.Web.Controllers

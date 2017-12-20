@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace RMQ.DataClass.DTO
+namespace RMQ.Core.DTO
 {
     [Serializable]
     //[DataContract]

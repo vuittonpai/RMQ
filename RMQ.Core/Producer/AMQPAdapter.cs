@@ -1,14 +1,11 @@
 ﻿
 using RabbitMQ.Client;
-using RMQ.Adapter.Consumer;
+using RMQ.Core.Consumer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace RMQ.Adapter.Producer
+namespace RMQ.Core.Producer
 {
     public abstract class AMQPAdapter : IDisposable
     {

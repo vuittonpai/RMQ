@@ -1,5 +1,5 @@
-﻿using System;
-using RMQ.Adapter.EventArg;
+﻿using RMQ.Core.EventArg;
+using System;
 
 namespace RMQ.Core.Producer
 {

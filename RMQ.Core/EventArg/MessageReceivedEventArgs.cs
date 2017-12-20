@@ -2,7 +2,7 @@
 using System;
 
 
-namespace RMQ.Adapter.EventArg
+namespace RMQ.Core.EventArg
 {
     public class MessageReceivedEventArgs : EventArgs
     {

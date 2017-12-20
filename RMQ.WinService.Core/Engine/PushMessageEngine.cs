@@ -1,6 +1,4 @@
-﻿
-using RMQ.DataClass;
-using RMQ.DataClass.DTO;
+﻿using RMQ.Core.DTO;
 using RMQ.WinService.Core.Engine.Base;
 using RMQ.WinService.Core.Engine.Module;
 using RMQ.WinService.Core.Schedule;
@@ -32,7 +30,7 @@ namespace RMQ.WinService.Core.Engine
         //}
 
 
-        protected override ScheduleBase GetNexJob()
+        protected override ScheduleBase GetNextJob()
         {
             if (!enabled) return null;
 

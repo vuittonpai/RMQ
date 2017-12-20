@@ -1,7 +1,7 @@
 ﻿
 
 
-using RMQ.Adapter.EventArg;
+using RMQ.Core.EventArg;
 
 namespace RMQ.Core.MicroService
 {

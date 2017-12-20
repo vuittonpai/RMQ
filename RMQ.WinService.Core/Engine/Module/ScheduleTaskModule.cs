@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RMQ.Core.MicroService;
 using RMQ.Core.Producer;
-using RMQ.DataClass;
-using RMQ.DataClass.DTO;
+using RMQ.Core.DTO;
 using RMQ.Utility.Nlog;
 using RMQ.WinService.Core.Engine.Adapter;
 using System;
@@ -70,7 +69,7 @@ namespace RMQ.WinService.Core.Engine.Module
                 adapter.Init("localhost", 5672, "guest", "guest", 30);
                 adapter.Connect();
                 task = JsonConvert.DeserializeObject<ScheduleTask>(adapter.StartDequeue());
-                //Receiver.Shutdown();
+                adapter.Disconnect();
                 //************************************************************
                 NLogService.Instance.Info($"{DateTime.Now} Info: GetNextScheduleTask()取得訊息。Queue: {queueName}。Task= {task.ScheduleData}");
 

@@ -1,5 +1,4 @@
-﻿using RMQ.DataClass;
-using RMQ.DataClass.DTO;
+﻿using RMQ.Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

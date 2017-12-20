@@ -217,10 +217,6 @@
       <Project>{42472B50-D972-4511-9635-ADF0681B868C}</Project>
       <Name>RMQ.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RMQ.DataClass\RMQ.DataClass.csproj">
-      <Project>{DA1928B5-F751-49A8-842F-CBABECA32BE1}</Project>
-      <Name>RMQ.DataClass</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

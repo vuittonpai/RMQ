@@ -1,6 +1,5 @@
 ﻿using System;
-using RMQ.Adapter.EventArg;
-using RMQ.Adapter.Producer;
+using RMQ.Core.EventArg;
 
 namespace RMQ.Core.Producer
 {
@@ -10,7 +9,7 @@ namespace RMQ.Core.Producer
     /// <typeparam name="T"></typeparam>
     public class MessageQueueProducerAdapter : IMessageQueueProducerAdapter
     {
-        public event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
+        //public event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
 
         public RMQAdapter Adapter { get; set; }
         public MessageQueueProducerAdapter()

@@ -1,5 +1,5 @@
 ﻿
-using RMQ.Adapter.EventArg;
+using RMQ.Core.EventArg;
 using RMQ.Core.Producer;
 using System;
 using System.Collections.Generic;

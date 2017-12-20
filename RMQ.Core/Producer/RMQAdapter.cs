@@ -8,7 +8,7 @@ using RabbitMQ.Client.Events;
 using System.Threading;
 using RMQ.Utility.Nlog;
 
-namespace RMQ.Adapter.Producer
+namespace RMQ.Core.Producer
 {
     public class RMQAdapter : AMQPAdapter
     {
@@ -103,8 +103,8 @@ namespace RMQ.Adapter.Producer
         }
         private void Connection_ConnectionShutdown(object connection, ShutdownEventArgs reason)
         {
-            logger.Info($"{DateTime.Now} Info: Connection_ConnectionShutdown。 connection= {connection} Message: {reason.Cause}");
-            Console.WriteLine("connection_ConnectionShutdown " + reason.ToString());
+            //logger.Info($"{DateTime.Now} Info: Connection_ConnectionShutdown。 connection= {connection} Message: {reason.Cause}");
+            //Console.WriteLine("connection_ConnectionShutdown " + reason.ToString());
             //ReStart();
         }
         private void Channel_ModelShutdown(object model, ShutdownEventArgs reason)

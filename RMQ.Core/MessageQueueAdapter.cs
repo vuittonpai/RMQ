@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using RMQ.Adapter.Consumer;
-using RMQ.Adapter.Producer;
-using RMQ.Adapter.EventArg;
+using RMQ.Core.Consumer;
+using RMQ.Core.EventArg;
 
 namespace RMQ.Core.Producer
 {

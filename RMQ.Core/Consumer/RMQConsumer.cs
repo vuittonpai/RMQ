@@ -1,8 +1,8 @@
 ﻿
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using RMQ.Adapter.EventArg;
-using RMQ.Adapter.Producer;
+using RMQ.Core.EventArg;
+using RMQ.Core.Producer;
 using RMQ.Utility.Nlog;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RMQ.Adapter.Consumer
+namespace RMQ.Core.Consumer
 {
     public abstract class RMQConsumer : AMQPComsumer
     {
@@ -107,8 +107,7 @@ namespace RMQ.Adapter.Consumer
             try
             {
                 var connection = (IConnection)amqpAdapter.GetConnection();
-                BasicDeliverEventArgs args;
-
+  
                 using (var channel = connection.CreateModel())
                 {
                     channel.QueueDeclare(queueName, true, false, false, null);

@@ -46,9 +46,9 @@ namespace RMQ.WinService.Core.Schedule
                 mail.Body = messages;
                 mail.BodyEncoding = Encoding.GetEncoding("utf-8");
                 mail.IsBodyHtml = true;    //是否使用 html 語法
-                mail.CC.Add(new MailAddress(""));
-                mail.CC.Add(new MailAddress(""));
-                mail.CC.Add(new MailAddress(""));
+                //mail.CC.Add(new MailAddress(""));
+                //mail.CC.Add(new MailAddress(""));
+                //mail.CC.Add(new MailAddress(""));
                 SmtpClient client = new SmtpClient("mail01.etzone.net");//公司的email Server
                 //client.Credentials = new NetworkCredential("Patrick.kuo@ehsn.com.tw", "");
                 client.UseDefaultCredentials = true;

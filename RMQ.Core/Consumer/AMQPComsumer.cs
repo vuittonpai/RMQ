@@ -1,14 +1,11 @@
 ﻿
 using RabbitMQ.Client.Events;
-using RMQ.Adapter.EventArg;
-using RMQ.Adapter.Producer;
+using RMQ.Core.EventArg;
+using RMQ.Core.Producer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RMQ.Adapter.Consumer
+namespace RMQ.Core.Consumer
 {
     public abstract class AMQPComsumer
     {

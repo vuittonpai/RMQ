@@ -22,7 +22,7 @@ namespace RMQ.WinService.Core.Engine.Base
 
         protected List<ScheduleBase> _Schedules = new List<ScheduleBase>();
 
-        protected abstract ScheduleBase GetNexJob();
+        protected abstract ScheduleBase GetNextJob();
 
         ///**************Option1: 需要的
         //protected abstract void StartReceiveQueue();
@@ -97,7 +97,7 @@ namespace RMQ.WinService.Core.Engine.Base
 
         private void CallScheduelBase()
         {
-            ScheduleBase schedule = GetNexJob();//去RabbitMQ 取下一個Message
+            ScheduleBase schedule = GetNextJob();//去RabbitMQ 取下一個Message
             if (schedule != null)
             {
                 //紀錄動作

@@ -22,7 +22,7 @@ namespace RMQ.Core.MicroService
         {
             _Adapter.Init(ip, port, userName, password, heartbeat);
             _Adapter.Connect();
-            _Adapter.moveMessageLogicToFrontEEE += OnMessageReceived;
+            _Adapter.MessageReceivedII += OnMessageReceived;
         }
 
         public void OnMessageReceived(object sender, MessageReceivedEventArgs e)

@@ -12,9 +12,7 @@ namespace RMQ.Core.Consumer
         protected readonly string queueName;
         protected readonly ushort prefetchCount;
         protected readonly bool noAck;
-        //protected readonly bool createQueue;
         protected readonly int timeout;
-        //protected readonly bool implicitAck;
         protected readonly IDictionary<string, object> queueArgs;
         protected volatile bool stopConsuming = false;
 
@@ -25,26 +23,13 @@ namespace RMQ.Core.Consumer
             this.queueName = queueName;
             this.prefetchCount = prefetchCount;
             this.noAck = noAck;
-            //this.createQueue = createQueue;//可移除;
             this.timeout = timeout;//The timeout is in millseconds, 之前是給Dequeue mehtod 用，但我改用新的EventingBasicConsumer去取
-            //this.implicitAck = implicitAck;//可移除
             this.queueArgs = queueArgs;//預留
         }
 
-        
-
-        //共用Producer內的連線機制
         internal abstract void Start(AMQPAdapter amqpAdapter);
         internal abstract void StartAsync(AMQPAdapter amqpAdapter);
         internal abstract string StartDequeue(AMQPAdapter amqpAdapter); 
-        //RabbitMQ的內建監聽機制
-        //public event EventHandler Consumer_Received;
-        //protected virtual void OnConsumer_ReceivedII(object sender, BasicDeliverEventArgs e)
-        //{
-        //    if (this.Consumer_Received != null)
-        //    {
-        //        this.Consumer_Received(this, e);
-        //    }
-        //}
+        
     }
 }

@@ -22,16 +22,15 @@ namespace RMQ.Core.Producer
         public abstract object GetConnection();
         public abstract void Publish(string message, string queueName, bool createQueue = true,
             IBasicProperties messageProperties = null, IDictionary<string, object> queueArgs = null);
-        //public abstract void AcknowledgeMessage(ulong deliveryTag);
+
         void IDisposable.Dispose()
         {
             Disconnect();
         }
 
-
-        protected object _Lock = new object();
         /// <summary>
-        /// 讓Windows Service去抓
+        /// 讓IAsyncMicroService用
+        /// 微服務之間的溝通
         /// </summary>
         /// <param name="consumer"></param>
         public void StartAsync(AMQPComsumer consumer)

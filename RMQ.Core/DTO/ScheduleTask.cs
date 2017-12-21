@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 namespace RMQ.Core.DTO
 {
     [Serializable]
-    //[DataContract]
     public class ScheduleTask
     {
         [Required]

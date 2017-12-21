@@ -19,17 +19,7 @@ namespace RMQ.WinService.Core.Engine
         {
             enabled = true;
         }
-
-        //protected override void StartReceiveQueue()
-        //{
-        //    PushNotificationService pushMessageSchedule = new PushNotificationService("MQ20171206.TaskQueue", 1000);
-        //    pushMessageSchedule.Init();
-        //    pushMessageSchedule.StartAsync();//即便使用不倫巡，還是沒辦法call OnFinished()，也無法取道message值
-        //    ThreadCounter++;
-        //    //OnFinished += new FinishedHandler(ScheduleFinish);
-        //}
-
-
+        
         protected override ScheduleBase GetNextJob()
         {
             if (!enabled) return null;

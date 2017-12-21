@@ -44,10 +44,6 @@ namespace RMQ.Core.Producer
         {
             return Adapter.GetReturnMessage(queueName);
         }
-
-        public void GetReturnMessage()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

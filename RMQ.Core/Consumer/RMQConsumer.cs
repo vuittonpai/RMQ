@@ -21,15 +21,11 @@ namespace RMQ.Core.Consumer
         { }
 
         private NLogService logger = new NLogService("RMQ.Adapter.RMQConsumer");
-
-        //public delegate string ReturnStringEventHandler(object sender, EventArgs args);
-        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+        public event EventHandler<MessageReceivedEventArgs> _MessageReceived;
         //觸發機制，讓前面去實作商業邏輯
-        protected void OnMessageReceivedBBB(object sender, MessageReceivedEventArgs e)
+        protected void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            MessageReceived?.Invoke(this, e);
-            //var handler = MessageReceived;
-            //if (handler != null) handler(this, e);
+            _MessageReceived?.Invoke(this, e);
         }
 
         internal override void StartAsync(AMQPAdapter amqpAdapter)
@@ -55,7 +51,7 @@ namespace RMQ.Core.Consumer
                         }
                         else
                         {
-                            //Thread.Sleep(3000);
+                            //Thread.Sleep(1000);
                         }
                     }
                 }
@@ -66,10 +62,10 @@ namespace RMQ.Core.Consumer
             }
             catch (Exception exception)
             {
-                //OnMessageReceivedBBB(new MessageReceivedEventArgs
-                //{
-                //    Exception = exception
-                //});
+                OnMessageReceived(this, new MessageReceivedEventArgs
+                {
+                    Exception = exception
+                });
             }
         }
 
@@ -113,11 +109,11 @@ namespace RMQ.Core.Consumer
             }
             catch (Exception exception)
             {
-                //OnMessageReceivedBBB(new MessageReceivedEventArgs
-                //{
-                //    Exception = exception
-                //});
-                //stopConsuming = true;
+                OnMessageReceived(this, new MessageReceivedEventArgs
+                {
+                    Exception = exception
+                });
+                stopConsuming = true;
             }
         }
 
@@ -163,7 +159,7 @@ namespace RMQ.Core.Consumer
             {
                 logger.Error($"{DateTime.Now}Error: TimeoutException={ e.Message} StackTrace: {e.StackTrace}");
                 Console.WriteLine(e);
-                //OnMessageReceivedBBB(new MessageReceivedEventArgs
+                //OnMessageReceived(new MessageReceivedEventArgs
                 //{
                 //    Exception = e
                 //});
@@ -181,15 +177,7 @@ namespace RMQ.Core.Consumer
                 var consumer = sender as EventingBasicConsumer;
                 var message = Encoding.UTF8.GetString(e.Body);
                 logger.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
-                //把這個做成abstract, 轉由前面去處理
-                //因為又抓出一層interface，再將他往外丟
-                //OnMessageReceivedBBB(new MessageReceivedEventArgs
-                //{
-                //    Message = message,
-                //    EventArgs = e
-                //});
-
-                MessageReceived?.Invoke(this, new MessageReceivedEventArgs {
+                _MessageReceived?.Invoke(this, new MessageReceivedEventArgs {
                     Message = message,
                     EventArgs = e
                 });
@@ -198,7 +186,6 @@ namespace RMQ.Core.Consumer
             }
             catch (Exception exception)
             {
-                
                 stopConsuming = true;
                 Thread.CurrentThread.Abort();
                 throw exception;
@@ -208,26 +195,15 @@ namespace RMQ.Core.Consumer
 
         protected void OnConsumer_ReceivedIIIAsync(object sender, BasicDeliverEventArgs e)
         {
-
             try
             {
                 var consumer = sender as EventingBasicConsumer;
                 var message = Encoding.UTF8.GetString(e.Body);
                 logger.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
-                //把這個做成abstract, 轉由前面去處理
-                //因為又抓出一層interface，再將他往外丟
-                //OnMessageReceivedBBB(new MessageReceivedEventArgs
-                //{
-                //    Message = message,
-                //    EventArgs = e
-                //});
-
                 AcknowledgeMessage(e.DeliveryTag, consumer.Model);
-
             }
             catch (Exception exception)
             {
-
                 stopConsuming = true;
                 Thread.CurrentThread.Abort();
                 throw exception;
@@ -235,38 +211,6 @@ namespace RMQ.Core.Consumer
 
         }
 
-
-        // 方法一: 使用EventHandler<T> 取接，
-        //private void Consumer_Received(object sender, BasicDeliverEventArgs e)
-        //{
-        //    while (!stopConsuming)
-        //    {
-        //        try
-        //        {
-        //            var consumer = sender as EventingBasicConsumer;
-        //            var message = Encoding.UTF8.GetString(e.Body);
-        //            //DoSomeLogicWork(message); 把這個做成abstract, 轉由前面去處理
-        //            Console.WriteLine("收到訊息: " + message);
-
-        //            OnMessageReceived(new MessageReceivedEventArgs
-        //            {
-        //                Message = message,
-        //                EventArgs = e
-        //            });
-
-        //            AcknowledgeMessage(e.DeliveryTag, consumer.Model);
-        //        }
-        //        catch (Exception exception)
-        //        {
-        //            OnMessageReceived(new MessageReceivedEventArgs
-        //            {
-        //                Exception = exception
-        //            });
-        //            stopConsuming = true;
-
-        //        }
-        //    }
-        //}
         public void AcknowledgeMessage(ulong deliveryTag, IModel channel)
         {
             logger.Info($"{DateTime.Now} Info: 回應收到。DeliveryTag: {deliveryTag}。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");

@@ -15,7 +15,6 @@ namespace RMQ.Core.Producer
         private static readonly RMQAdapter _instance = new RMQAdapter();
         private IConnection _connection;
 
-        //static RMQAdapter(){}
         public static RMQAdapter Instance { get { return _instance; } }
 
         private NLogService logger = new NLogService("RMQ.Adapter.RMQAdapter");
@@ -34,8 +33,8 @@ namespace RMQ.Core.Producer
                 
             };
             //回復連線機制: Connection Recovery
-            //connectionFactory.AutomaticRecoveryEnabled = true;
-            //connectionFactory.NetworkRecoveryInterval = TimeSpan.FromSeconds(20);
+            connectionFactory.AutomaticRecoveryEnabled = true;
+            connectionFactory.NetworkRecoveryInterval = TimeSpan.FromSeconds(20);
 
             _connection = connectionFactory.CreateConnection();
             _connection.CallbackException += Connection_CallbackException;
@@ -99,11 +98,7 @@ namespace RMQ.Core.Producer
             return this;
         }
 
-        public void PublishMessage(string queueName, string message, bool createQueue = true, IBasicProperties messageProperties = null, IDictionary<string, object> queueArgs = null)
-        {
-            this.Publish(queueName, message);
-        }
-
+        
         public override void Publish(string queueName, string message, bool createQueue = true, IBasicProperties messageProperties = null, IDictionary<string, object> queueArgs = null)
         {
             try

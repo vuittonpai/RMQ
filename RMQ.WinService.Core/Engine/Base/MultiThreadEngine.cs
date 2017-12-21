@@ -23,13 +23,7 @@ namespace RMQ.WinService.Core.Engine.Base
         protected List<ScheduleBase> _Schedules = new List<ScheduleBase>();
 
         protected abstract ScheduleBase GetNextJob();
-
-        ///**************Option1: 需要的
-        //protected abstract void StartReceiveQueue();
-        //public delegate void FinishedHandler(int index, bool success, string message, double thisSeconds);
-        //public event FinishedHandler OnFinished;
-        ///**************Option1 End
-
+        
         public MultiThreadEngine(string scheduleServer, int maxThread, int intervalSec)
         {
             _ScheduleServer = scheduleServer;
@@ -64,13 +58,8 @@ namespace RMQ.WinService.Core.Engine.Base
                 {
                     if (ThreadCounter < _MaxThread)
                     {
-                        //Option1: 搭配我的RMQComsuer，A: 失敗，即便拿掉倫巡，也不知道thread結束於否。
-                        //lock (_Lock)
-                        //{
-                        //    StartReceiveQueue();//去RabbitMQ 取下一個Message倫巡
-                        //}
                         //Option2:
-                        CallScheduelBase();
+                        CallScheduelBaseII();
 
                     }
                     else
@@ -95,7 +84,7 @@ namespace RMQ.WinService.Core.Engine.Base
             }
         }
 
-        private void CallScheduelBase()
+        private void CallScheduelBaseII()
         {
             ScheduleBase schedule = GetNextJob();//去RabbitMQ 取下一個Message
             if (schedule != null)
@@ -133,7 +122,7 @@ namespace RMQ.WinService.Core.Engine.Base
                 lock (_Lock)
                 {
                     ThreadCounter--;
-                    //_Schedules.Remove(schedule);
+                    _Schedules.Remove(schedule);
                     MaxThreadAutoReset.Set();
                 }
 

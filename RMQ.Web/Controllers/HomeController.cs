@@ -22,15 +22,14 @@ namespace RMQ.Web.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-            //修改方法二: 多一層介面
-            
+           
             var MQAdapter = new MQProducerFacade();
             if (!MQAdapter.IsConnected())
             {
                 MQAdapter.Init("127.0.0.1", 5672, "guest", "guest", 30);
                 MQAdapter.Connect();
             }
-            string message = SetMessage();//string.Format("This is the Producer message {0}", DateTime.Now.ToLongTimeString());
+            string message = SetMessage();
             string queueName = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
             MQAdapter.Publish(queueName, message);
             return View();

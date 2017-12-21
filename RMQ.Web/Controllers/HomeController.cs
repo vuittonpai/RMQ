@@ -15,10 +15,7 @@ namespace RMQ.Web.Controllers
         }
 
         public ActionResult About()
-        {
-            var Receiver = new PushNotificationService("MQ20171206.TaskQueue", 1000, 10, false, null, 2, 10);
-            Receiver.Init("localhost", 5672, "guest", "guest", 30);
-            Receiver.Start();
+        {            
             ViewBag.Message = "";
             return View();
         }

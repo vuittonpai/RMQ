@@ -22,7 +22,17 @@ namespace RMQ.Core.Consumer
 
         private NLogService logger = new NLogService("RMQ.Adapter.RMQConsumer");
 
-        public override void StartAsync(AMQPAdapter amqpAdapter)
+        //public delegate string ReturnStringEventHandler(object sender, EventArgs args);
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+        //觸發機制，讓前面去實作商業邏輯
+        protected virtual void OnMessageReceived(MessageReceivedEventArgs e)
+        {
+            MessageReceived?.Invoke(this, e);
+            //var handler = MessageReceived;
+            //if (handler != null) handler(this, e);
+        }
+
+        internal override void StartAsync(AMQPAdapter amqpAdapter)
         {
             try
             {
@@ -63,7 +73,7 @@ namespace RMQ.Core.Consumer
             }
         }
 
-        public override void Start(AMQPAdapter amqpAdapter)
+        internal override void Start(AMQPAdapter amqpAdapter)
         {
             try
             {
@@ -112,7 +122,7 @@ namespace RMQ.Core.Consumer
         }
 
         private string returnMessage = "";
-        public override string StartDequeue(AMQPAdapter amqpAdapter)
+        internal override string StartDequeue(AMQPAdapter amqpAdapter)
         {
             try
             {

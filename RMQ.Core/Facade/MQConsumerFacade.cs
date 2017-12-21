@@ -8,9 +8,9 @@ namespace RMQ.Core.Producer
     public class MQConsumerFacade<T> : RMQConsumer, IMQConsumerFacade<T>, IDisposable
         where T : class
     {
-        
 
-        public RMQAdapter Adapter { get; set; }
+
+        internal RMQAdapter Adapter { get; set; }
         public MQConsumerFacade
             (string queueName, int timeout, ushort prefetchCount = 1
             , bool noAck = false, IDictionary<string, object> queueArgs = null
@@ -20,22 +20,24 @@ namespace RMQ.Core.Producer
             Adapter = RMQAdapter.Instance;
         }
 
-        event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
-        object objectLock = new Object();
-        event EventHandler<MessageReceivedEventArgs> IMQConsumerFacade<T>.moveMessageLogicToFront
-        {
-            add
-            {
-                lock (objectLock)
-                    moveMessageLogicToFront += value;
-            }
-            remove
-            {
-                lock (objectLock)
-                    moveMessageLogicToFront -= value;
         
-            }
-        }
+        public event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
+        //object objectLock = new Object();
+        //event EventHandler<MessageReceivedEventArgs> IMQConsumerFacade<T>.moveMessageLogicToFront
+        //{
+        //    add
+        //    {
+        //        lock (objectLock)
+        //            moveMessageLogicToFront += value;
+        //    }
+        //    remove
+        //    {
+        //        lock (objectLock)
+        //            moveMessageLogicToFront -= value;
+        
+        //    }
+        //}
+
         //public void DoBusinessLogic()
         //{
         //    //往外丟觸發處，目前先移到OnMessageReceived()那觸發

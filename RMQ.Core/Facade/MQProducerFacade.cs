@@ -9,7 +9,7 @@ namespace RMQ.Core.Producer
     /// <typeparam name="T"></typeparam>
     public class MQProducerFacade : IMQProducerFacade
     {
-        public RMQAdapter Adapter { get; set; }
+        internal RMQAdapter Adapter { get; set; }
         public MQProducerFacade()
         {
             Adapter = RMQAdapter.Instance;

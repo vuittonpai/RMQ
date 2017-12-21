@@ -10,12 +10,12 @@ using RMQ.Utility.Nlog;
 
 namespace RMQ.Core.Producer
 {
-    public class RMQAdapter : AMQPAdapter
+    internal class RMQAdapter : AMQPAdapter
     {
         private static readonly RMQAdapter _instance = new RMQAdapter();
         private IConnection _connection;
 
-        static RMQAdapter(){}
+        //static RMQAdapter(){}
         public static RMQAdapter Instance { get { return _instance; } }
 
         private NLogService logger = new NLogService("RMQ.Adapter.RMQAdapter");
@@ -88,7 +88,7 @@ namespace RMQ.Core.Producer
         }
 
         public override object GetConnection() => _connection;
-       
+
         public override AMQPAdapter Init(string hostName, int port, string userName, string password, ushort heartbeat)
         {
             this.hostName = hostName;

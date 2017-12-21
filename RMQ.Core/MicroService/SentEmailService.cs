@@ -8,7 +8,7 @@ using RMQ.Core.Producer;
 
 namespace RMQ.Core.MicroService
 {
-    public class SentEmailService : IMicroService
+    public class SentEmailService : IAsyncMicroService
     {
         private IMQConsumerFacade<SentEmailService> _Adapter;
         public SentEmailService(string queueName, int timeout, ushort prefetchCount = 1

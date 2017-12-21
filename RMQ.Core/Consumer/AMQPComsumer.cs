@@ -14,7 +14,7 @@ namespace RMQ.Core.Consumer
         protected readonly bool noAck;
         //protected readonly bool createQueue;
         protected readonly int timeout;
-        protected readonly bool implicitAck;
+        //protected readonly bool implicitAck;
         protected readonly IDictionary<string, object> queueArgs;
         protected volatile bool stopConsuming = false;
 
@@ -31,20 +31,12 @@ namespace RMQ.Core.Consumer
             this.queueArgs = queueArgs;//預留
         }
 
-        public delegate string ReturnStringEventHandler(object sender, EventArgs args);
-        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
-        //觸發機制，讓前面去實作商業邏輯
-        protected void OnMessageReceived(MessageReceivedEventArgs e)
-        {
-            MessageReceived?.Invoke(this, e);
-            //var handler = MessageReceived;
-            //if (handler != null) handler(this, e);
-        }
+        
 
         //共用Producer內的連線機制
-        public abstract void Start(AMQPAdapter amqpAdapter);
-        public abstract void StartAsync(AMQPAdapter amqpAdapter);
-        public abstract string StartDequeue(AMQPAdapter amqpAdapter); 
+        internal abstract void Start(AMQPAdapter amqpAdapter);
+        internal abstract void StartAsync(AMQPAdapter amqpAdapter);
+        internal abstract string StartDequeue(AMQPAdapter amqpAdapter); 
         //RabbitMQ的內建監聽機制
         public event EventHandler Consumer_Received;
         protected virtual void OnConsumer_ReceivedII(object sender, BasicDeliverEventArgs e)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMQ.Core.Producer
 {
-    public abstract class AMQPAdapter : IDisposable
+    internal abstract class AMQPAdapter : IDisposable
     {
         protected string hostName;
         protected int port;

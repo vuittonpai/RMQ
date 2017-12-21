@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{42472B50-D972-4511-9635-ADF0681B868C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RMQ.Core</RootNamespace>
-    <AssemblyName>RMQ.Core</AssemblyName>
+    <ProjectGuid>{77C187EF-CEAA-4092-A9C8-407E24844851}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RMQ.Job</RootNamespace>
+    <AssemblyName>RMQ.Job</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,14 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net46\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
-    </Reference>
-    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,29 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consumer\AMQPComsumer.cs" />
-    <Compile Include="Consumer\RMQConsumer.cs" />
-    <Compile Include="DTO\ScheduleTask.cs" />
-    <Compile Include="EventArg\MessageReceivedEventArgs.cs" />
-    <Compile Include="Facade\IMQConsumerFacade.cs" />
-    <Compile Include="Facade\IMQProducerFacade.cs" />
-    <Compile Include="Facade\MQConsumerFacade.cs" />
-    <Compile Include="Facade\MQProducerFacade.cs" />
-    <Compile Include="MicroService\IAsyncMicroService.cs" />
-    <Compile Include="MicroService\IMicroService.cs" />
-    <Compile Include="MicroService\PushNotificationService.cs" />
-    <Compile Include="MicroService\SentEmailService.cs" />
-    <Compile Include="Producer\AMQPAdapter.cs" />
-    <Compile Include="Producer\RMQAdapter.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RMQ.Utility\RMQ.Utility.csproj">
-      <Project>{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}</Project>
-      <Name>RMQ.Utility</Name>
+    <ProjectReference Include="..\RMQ.Core\RMQ.Core.csproj">
+      <Project>{42472B50-D972-4511-9635-ADF0681B868C}</Project>
+      <Name>RMQ.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

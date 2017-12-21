@@ -23,7 +23,7 @@ namespace RMQ.Core.MicroService
 
 
 
-        public string returnData { get; set; }
+        //public string returnData { get; set; }
 
         public void Init(string ip, int port, string userName, string password, ushort heartbeat)
         {
@@ -32,38 +32,38 @@ namespace RMQ.Core.MicroService
             _Adapter.Connect();
             //base.MessageReceived += OnMessageReceived;
        
-            _Adapter.moveMessageLogicToFront += OnMessageReceivedII;
+            _Adapter.moveMessageLogicToFront += OnMessageReceived;
             //base.Start(_adapter);//可改成非同步方式 A: 區分開來可以async，或是單執行續，StartAsync()
         }
 
-        private void OnMessageReceivedII(object sender, MessageReceivedEventArgs e)
-        {
-            //轉移商業邏輯II
+        //private void OnMessageReceivedII(object sender, MessageReceivedEventArgs e)
+        //{
+        //    //轉移商業邏輯II
 
-            Console.WriteLine("OnMessageReceivedII收到訊息: " + e?.Message.ToString() + " 時間: " + DateTime.Now.ToLongDateString());
+        //    Console.WriteLine("OnMessageReceivedII收到訊息: " + e?.Message.ToString() + " 時間: " + DateTime.Now.ToLongDateString());
 
-        }
+        //}
 
         public void Start()
         {
             _Adapter.Comsume();
             //base.Start(_Adapter);
         }
-        public void StartAsync()
-        {
-            _Adapter.StartAsync(this);
-        }
-        public string StartDequeue()
-        {
-            return _Adapter.StartDequeue();
-        }
+        //public void StartAsync()
+        //{
+        //    _Adapter.StartAsync(this);
+        //}
+        //public string StartDequeue()
+        //{
+        //    return _Adapter.StartDequeue();
+        //}
 
 
         public void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             //var dataObject = JsonConvert.DeserializeObject<dynamic>(e.Message);
             //商業邏輯的專案在這個
-            returnData = e.result = e.Message;
+            e.result = e.Message;
             Console.WriteLine("OnMessageReceived收到訊息: " + e.Message + " 時間: " + DateTime.Now.ToLongDateString());
          
 
@@ -73,13 +73,13 @@ namespace RMQ.Core.MicroService
             //_adapter.Publish(result.ToString(), queueName);
         }
 
-        public void Shutdown()
+        public void Shutdown() 
         {
             if (_Adapter == null) return;
 
             _Adapter.Disconnect();
         }
 
-        
+
     }
 }

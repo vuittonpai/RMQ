@@ -25,7 +25,7 @@ namespace RMQ.Core.Consumer
         //public delegate string ReturnStringEventHandler(object sender, EventArgs args);
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
         //觸發機制，讓前面去實作商業邏輯
-        protected virtual void OnMessageReceived(MessageReceivedEventArgs e)
+        protected void OnMessageReceivedBBB(object sender, MessageReceivedEventArgs e)
         {
             MessageReceived?.Invoke(this, e);
             //var handler = MessageReceived;
@@ -66,10 +66,10 @@ namespace RMQ.Core.Consumer
             }
             catch (Exception exception)
             {
-                OnMessageReceived(new MessageReceivedEventArgs
-                {
-                    Exception = exception
-                });
+                //OnMessageReceivedBBB(new MessageReceivedEventArgs
+                //{
+                //    Exception = exception
+                //});
             }
         }
 
@@ -92,7 +92,7 @@ namespace RMQ.Core.Consumer
                             channel.BasicQos(0, prefetchCount, false);
 
                             var consumer = new EventingBasicConsumer(channel);
-                            consumer.Received += OnConsumer_ReceivedII;
+                            consumer.Received += OnConsumer_ReceivedIIAAA;
                             var test = channel.BasicConsume(queueName, noAck, consumer);
                             logger.Info($"{DateTime.Now} Info: Consumer啟動。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
                         }
@@ -113,11 +113,11 @@ namespace RMQ.Core.Consumer
             }
             catch (Exception exception)
             {
-                OnMessageReceived(new MessageReceivedEventArgs
-                {
-                    Exception = exception
-                });
-                stopConsuming = true;
+                //OnMessageReceivedBBB(new MessageReceivedEventArgs
+                //{
+                //    Exception = exception
+                //});
+                //stopConsuming = true;
             }
         }
 
@@ -163,17 +163,17 @@ namespace RMQ.Core.Consumer
             {
                 logger.Error($"{DateTime.Now}Error: TimeoutException={ e.Message} StackTrace: {e.StackTrace}");
                 Console.WriteLine(e);
-                OnMessageReceived(new MessageReceivedEventArgs
-                {
-                    Exception = e
-                });
+                //OnMessageReceivedBBB(new MessageReceivedEventArgs
+                //{
+                //    Exception = e
+                //});
                 stopConsuming = true;
                 return returnMessage;
             }
         }
        
         //// 方法二: 使用EventHandler 取接，
-        protected override void OnConsumer_ReceivedII(object sender, BasicDeliverEventArgs e)
+        protected void OnConsumer_ReceivedIIAAA(object sender, BasicDeliverEventArgs e)
         {
             
             try
@@ -183,12 +183,16 @@ namespace RMQ.Core.Consumer
                 logger.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
                 //把這個做成abstract, 轉由前面去處理
                 //因為又抓出一層interface，再將他往外丟
-                OnMessageReceived(new MessageReceivedEventArgs
-                {
+                //OnMessageReceivedBBB(new MessageReceivedEventArgs
+                //{
+                //    Message = message,
+                //    EventArgs = e
+                //});
+
+                MessageReceived?.Invoke(this, new MessageReceivedEventArgs {
                     Message = message,
                     EventArgs = e
                 });
-
                 AcknowledgeMessage(e.DeliveryTag, consumer.Model);
                     
             }
@@ -212,11 +216,11 @@ namespace RMQ.Core.Consumer
                 logger.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
                 //把這個做成abstract, 轉由前面去處理
                 //因為又抓出一層interface，再將他往外丟
-                OnMessageReceived(new MessageReceivedEventArgs
-                {
-                    Message = message,
-                    EventArgs = e
-                });
+                //OnMessageReceivedBBB(new MessageReceivedEventArgs
+                //{
+                //    Message = message,
+                //    EventArgs = e
+                //});
 
                 AcknowledgeMessage(e.DeliveryTag, consumer.Model);
 

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RMQ.Core.DTO;
-using RMQ.Core.MicroService;
 using RMQ.Core.Producer;
 using System;
 using System.Web.Mvc;

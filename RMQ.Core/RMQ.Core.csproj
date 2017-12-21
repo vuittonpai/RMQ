@@ -55,10 +55,6 @@
     <Compile Include="Facade\IMQProducerFacade.cs" />
     <Compile Include="Facade\MQConsumerFacade.cs" />
     <Compile Include="Facade\MQProducerFacade.cs" />
-    <Compile Include="MicroService\IAsyncMicroService.cs" />
-    <Compile Include="MicroService\IMicroService.cs" />
-    <Compile Include="MicroService\PushNotificationService.cs" />
-    <Compile Include="MicroService\SentEmailService.cs" />
     <Compile Include="Producer\AMQPAdapter.cs" />
     <Compile Include="Producer\RMQAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -14,6 +14,7 @@ namespace RMQ.Core.Producer
         string StartDequeue();
         void Disconnect();
    
-        event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
+        event EventHandler<MessageReceivedEventArgs> MessageReceivedII;
+        void OnMessageReceived(object sender, MessageReceivedEventArgs e);
     }
 }

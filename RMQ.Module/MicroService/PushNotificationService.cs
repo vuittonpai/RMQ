@@ -1,4 +1,6 @@
 ﻿
+using Newtonsoft.Json;
+using RMQ.Core.DTO;
 using RMQ.Core.EventArg;
 using RMQ.Core.Producer;
 using System;
@@ -32,7 +34,7 @@ namespace RMQ.Core.MicroService
             _Adapter.Connect();
             //base.MessageReceived += OnMessageReceived;
        
-            _Adapter.moveMessageLogicToFrontEEE += OnMessageReceivedFFF;
+            _Adapter.MessageReceivedII += OnMessageReceived;
             //base.Start(_adapter);//可改成非同步方式 A: 區分開來可以async，或是單執行續，StartAsync()
         }
 
@@ -59,19 +61,11 @@ namespace RMQ.Core.MicroService
         //}
 
 
-        public void OnMessageReceivedFFF(object sender, MessageReceivedEventArgs e)
+        public void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            //var dataObject = JsonConvert.DeserializeObject<dynamic>(e.Message);
             //商業邏輯的專案在這個
-            e.result = e.Message;
-            var result = JsonConvert.DeserializeObject<ScheduleTask>(adapter.StartDequeue());
-            Console.WriteLine("OnMessageReceived收到訊息: " + e.Message + " 時間: " + DateTime.Now.ToLongDateString());
-         
-
-
-            //可特過物件資訊在做回傳，但是push相對商業邏輯單純，應該不會需要。
-            //var queueName = dataObject[1];
-            //_adapter.Publish(result.ToString(), queueName);
+            var result = JsonConvert.DeserializeObject<ScheduleTask>(e.Message);
+            Console.WriteLine("OnMessageReceived收到訊息: " + result.ScheduleData + " 時間: " + DateTime.Now.ToLongDateString());
         }
 
         public void Shutdown() 

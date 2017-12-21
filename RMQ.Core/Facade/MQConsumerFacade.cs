@@ -21,7 +21,7 @@ namespace RMQ.Core.Producer
         }
 
         
-        public event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
+        public event EventHandler<MessageReceivedEventArgs> MessageReceivedII;
         //object objectLock = new Object();
         //event EventHandler<MessageReceivedEventArgs> IMQConsumerFacade<T>.moveMessageLogicToFront
         //{
@@ -56,7 +56,7 @@ namespace RMQ.Core.Producer
         public void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             //再往外丟
-            moveMessageLogicToFront?.Invoke(this, e);
+            MessageReceivedII?.Invoke(this, e);
         }
 
 

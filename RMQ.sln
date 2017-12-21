@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.WebApi", "RMQ.WebApi\RM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.Job", "RMQ.Job\RMQ.Job.csproj", "{77C187EF-CEAA-4092-A9C8-407E24844851}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.Module", "RMQ.Module\RMQ.Module.csproj", "{C345E9FE-6EA0-49D6-81EC-1F113A618AF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{77C187EF-CEAA-4092-A9C8-407E24844851}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77C187EF-CEAA-4092-A9C8-407E24844851}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77C187EF-CEAA-4092-A9C8-407E24844851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C345E9FE-6EA0-49D6-81EC-1F113A618AF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C345E9FE-6EA0-49D6-81EC-1F113A618AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C345E9FE-6EA0-49D6-81EC-1F113A618AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C345E9FE-6EA0-49D6-81EC-1F113A618AF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

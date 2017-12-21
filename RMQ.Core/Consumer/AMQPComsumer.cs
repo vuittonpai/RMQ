@@ -38,13 +38,13 @@ namespace RMQ.Core.Consumer
         internal abstract void StartAsync(AMQPAdapter amqpAdapter);
         internal abstract string StartDequeue(AMQPAdapter amqpAdapter); 
         //RabbitMQ的內建監聽機制
-        public event EventHandler Consumer_Received;
-        protected virtual void OnConsumer_ReceivedII(object sender, BasicDeliverEventArgs e)
-        {
-            if (this.Consumer_Received != null)
-            {
-                this.Consumer_Received(this, e);
-            }
-        }
+        //public event EventHandler Consumer_Received;
+        //protected virtual void OnConsumer_ReceivedII(object sender, BasicDeliverEventArgs e)
+        //{
+        //    if (this.Consumer_Received != null)
+        //    {
+        //        this.Consumer_Received(this, e);
+        //    }
+        //}
     }
 }

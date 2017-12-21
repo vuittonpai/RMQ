@@ -11,6 +11,7 @@ namespace RMQ.Core.MicroService
         void OnMessageReceived(object sender, MessageReceivedEventArgs e);
         void Shutdown();
         void Start();
+        void StartAsync();
         string StartDequeue();
     }
 }

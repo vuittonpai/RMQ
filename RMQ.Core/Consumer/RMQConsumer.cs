@@ -31,13 +31,23 @@ namespace RMQ.Core.Consumer
                 using (var channel = connection.CreateModel())
                 {
                     channel.ModelShutdown += Channel_ModelShutdown;
-                    
-                    if (createQueue) channel.QueueDeclare(queueName, true, false, false, queueArgs);
-                    channel.BasicQos(0, prefetchCount, false);
 
-                    var consumer = new EventingBasicConsumer(channel);
-                    consumer.Received += OnConsumer_ReceivedII;
-                    channel.BasicConsume(queueName, noAck, consumer);
+                    while (!stopConsuming)
+                    {
+                        if (channel.ConsumerCount(queueName) < 2 || channel.MessageCount(queueName) > 10)
+                        {
+                            channel.QueueDeclare(queueName, true, false, false, queueArgs);
+                            channel.BasicQos(0, prefetchCount, false);
+
+                            var consumer = new EventingBasicConsumer(channel);
+                            consumer.Received += OnConsumer_ReceivedIIIAsync;
+                            channel.BasicConsume(queueName, noAck, consumer);
+                        }
+                        else
+                        {
+                            //Thread.Sleep(3000);
+                        }
+                    }
                 }
             }
             catch (TimeoutException e)
@@ -68,7 +78,7 @@ namespace RMQ.Core.Consumer
                         if (channel.ConsumerCount(queueName) < 2 || channel.MessageCount(queueName) > 10)
                         {
                             //當Consumer少於2台，或是，Message大於10個
-                            if (createQueue) channel.QueueDeclare(queueName, true, false, false, queueArgs);
+                            channel.QueueDeclare(queueName, true, false, false, queueArgs);
                             channel.BasicQos(0, prefetchCount, false);
 
                             var consumer = new EventingBasicConsumer(channel);
@@ -78,7 +88,7 @@ namespace RMQ.Core.Consumer
                         }
                         else
                         {
-                            Thread.Sleep(1000);
+                            Thread.Sleep(3000);
                         }
                        
                     }
@@ -181,6 +191,36 @@ namespace RMQ.Core.Consumer
             }
             
         }
+
+        protected void OnConsumer_ReceivedIIIAsync(object sender, BasicDeliverEventArgs e)
+        {
+
+            try
+            {
+                var consumer = sender as EventingBasicConsumer;
+                var message = Encoding.UTF8.GetString(e.Body);
+                logger.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
+                //把這個做成abstract, 轉由前面去處理
+                //因為又抓出一層interface，再將他往外丟
+                OnMessageReceived(new MessageReceivedEventArgs
+                {
+                    Message = message,
+                    EventArgs = e
+                });
+
+                AcknowledgeMessage(e.DeliveryTag, consumer.Model);
+
+            }
+            catch (Exception exception)
+            {
+
+                stopConsuming = true;
+                Thread.CurrentThread.Abort();
+                throw exception;
+            }
+
+        }
+
 
         // 方法一: 使用EventHandler<T> 取接，
         //private void Consumer_Received(object sender, BasicDeliverEventArgs e)

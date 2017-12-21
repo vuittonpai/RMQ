@@ -1,0 +1,87 @@
+﻿using Newtonsoft.Json;
+using RMQ.Core.DTO;
+using RMQ.Core.MicroService;
+using RMQ.Core.Producer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+
+namespace RMQ.WebApi.Controllers
+{
+    public class ValuesController : ApiController
+    {
+        [Route("Produce")]
+        [HttpGet]
+        public string Produce()
+        {
+            MessageQueueProducerAdapter MQAdapter = new MessageQueueProducerAdapter();
+            if (!MQAdapter.IsConnected())
+            {
+                MQAdapter.Init("127.0.0.1", 5672, "guest", "guest", 30);
+                MQAdapter.Connect();
+            }
+            string message = SetMessage();
+            string queueName = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
+            MQAdapter.Publish(queueName, message);
+            
+            string replyQueue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.ReplyMessage";
+            return MQAdapter.GetReturnMessage(replyQueue);
+      
+        }
+
+        // GET api/values
+        public IEnumerable<string> Get()
+        {
+            string queue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
+            IMicroService Receiver = new SentEmailService(queue, 60, 10, false, null, 2, 10);
+            Receiver.Init("localhost", 5672, "guest", "guest", 30);
+            Receiver.StartAsync();
+
+            return new string[] { "Success", "StartAsync()" };
+        }
+
+        // GET api/values/5
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        // POST api/values
+        public void Post([FromBody]string value)
+        {
+            
+        }
+
+        private string SetMessage()
+        {
+            ScheduleTask taskData = new ScheduleTask
+            {
+                ID = 1,
+                Status = ScheduleStatus.Initialized,
+                ScheduleType = ScheduleType.PushMessage,
+                Name = "dont know what this for",
+                ScheduleData = $"This is the Producer message {DateTime.Now.ToLongTimeString()}",
+                Description = "dont know what this for",
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now,
+                SubmittedDate = DateTime.Now
+
+            };
+
+            return JsonConvert.SerializeObject(taskData);
+        }
+
+        // PUT api/values/5
+        public void Put(int id, [FromBody]string value)
+        {
+        }
+
+        // DELETE api/values/5
+        public void Delete(int id)
+        {
+        }
+    }
+}

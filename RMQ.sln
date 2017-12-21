@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.WinService.Core", "RMQ.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.Utility", "RMQ.Utility\RMQ.Utility.csproj", "{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.WebApi", "RMQ.WebApi\RMQ.WebApi.csproj", "{B02D9F7D-14C8-4737-86EA-972E05AE2019}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02D9F7D-14C8-4737-86EA-972E05AE2019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02D9F7D-14C8-4737-86EA-972E05AE2019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02D9F7D-14C8-4737-86EA-972E05AE2019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02D9F7D-14C8-4737-86EA-972E05AE2019}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

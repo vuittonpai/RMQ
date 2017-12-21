@@ -12,7 +12,7 @@ namespace RMQ.Core.Consumer
         protected readonly string queueName;
         protected readonly ushort prefetchCount;
         protected readonly bool noAck;
-        protected readonly bool createQueue;
+        //protected readonly bool createQueue;
         protected readonly int timeout;
         protected readonly bool implicitAck;
         protected readonly IDictionary<string, object> queueArgs;

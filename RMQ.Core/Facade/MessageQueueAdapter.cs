@@ -5,7 +5,7 @@ using RMQ.Core.EventArg;
 
 namespace RMQ.Core.Producer
 {
-    public class MessageQueueAdapter<T> : RMQConsumer, IMessageQueueAdapter<T>, IDisposable
+    public class MessageQueueAdapter<T> : RMQConsumer, IMQConsumerFacade<T>, IDisposable
         where T : class
     {
         
@@ -22,7 +22,7 @@ namespace RMQ.Core.Producer
 
         event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
         object objectLock = new Object();
-        event EventHandler<MessageReceivedEventArgs> IMessageQueueAdapter<T>.moveMessageLogicToFront
+        event EventHandler<MessageReceivedEventArgs> IMQConsumerFacade<T>.moveMessageLogicToFront
         {
             add
             {
@@ -80,6 +80,7 @@ namespace RMQ.Core.Producer
 
         public void StartAsync(T microserviceService)
         {
+            base.MessageReceived += OnMessageReceived;
             Adapter.StartAsync(this);
         }
         public string StartDequeue()

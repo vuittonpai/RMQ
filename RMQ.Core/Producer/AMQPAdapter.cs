@@ -39,12 +39,7 @@ namespace RMQ.Core.Producer
             if (!IsConnected) Connect();
 
             var thread = Task.Run(() => consumer.StartAsync(this));
-            // var thread = new Thread(o => consumer.StartAsync(this));
-            //thread.Start();
-            //while (!thread.IsAlive)
-            //{
-            //    Thread.Sleep(1);
-            //}
+            //consumer.Start(this);//測試用
         }
 
  

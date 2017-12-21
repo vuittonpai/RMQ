@@ -42,6 +42,46 @@ namespace RMQ.Core.Producer
             _connection.ConnectionShutdown += Connection_ConnectionShutdown;
         }
 
+        
+        internal string GetReturnMessage(string queueName)
+        {
+            try
+            {
+                string returnMessage = string.Empty;
+                var connection = (IConnection)this.GetConnection();
+
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare(queueName, true, false, false, null);
+                    channel.BasicQos(0, 1, false);
+                    
+                    var result = channel.BasicGet(queueName, false);
+                    if (result != null)
+                    {
+                        IBasicProperties props = result.BasicProperties;
+                        byte[] body = result.Body;
+                        returnMessage = Encoding.UTF8.GetString(body);
+                        logger.Info($"{DateTime.Now} {channel.ChannelNumber} Info: 接收訊息。 QueueName= {queueName} Message: {returnMessage}");
+                        channel.BasicAck(result.DeliveryTag, false);
+                        logger.Info($"{DateTime.Now} {channel.ChannelNumber} Info: 回應收到。 QueueName= {queueName} Message: {returnMessage}");
+                    }
+                }
+                return returnMessage;
+            }
+            catch (TimeoutException e)
+            {
+                Console.WriteLine(e);
+                return "";
+            }
+            catch (Exception e)
+            {
+                logger.Error($"{DateTime.Now}Error: TimeoutException={ e.Message} StackTrace: {e.StackTrace}");
+                Console.WriteLine(e);
+                return "";
+            }
+        }
+
+
         public override void Disconnect()
         {
             if (_connection != null) _connection.Dispose();

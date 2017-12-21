@@ -7,7 +7,7 @@ namespace RMQ.Core.Producer
     /// 這個是給Producer用
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MessageQueueProducerAdapter : IMessageQueueProducerAdapter
+    public class MessageQueueProducerAdapter : IMQProducerFacade
     {
         //public event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
 
@@ -42,6 +42,14 @@ namespace RMQ.Core.Producer
             Adapter.Disconnect();
         }
 
-       
+        public string GetReturnMessage(string queueName)
+        {
+            return Adapter.GetReturnMessage(queueName);
+        }
+
+        public void GetReturnMessage()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

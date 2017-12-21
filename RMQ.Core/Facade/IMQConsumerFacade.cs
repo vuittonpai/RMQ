@@ -3,7 +3,7 @@ using System;
 
 namespace RMQ.Core.Producer
 {
-    public interface IMessageQueueAdapter<T>
+    public interface IMQConsumerFacade<T>
     {
         bool IsConnected();
         void Init(string ip, int port, string userName, string password, ushort heartbeat);

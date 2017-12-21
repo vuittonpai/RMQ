@@ -51,12 +51,13 @@
     <Compile Include="Consumer\RMQConsumer.cs" />
     <Compile Include="DTO\ScheduleTask.cs" />
     <Compile Include="EventArg\MessageReceivedEventArgs.cs" />
-    <Compile Include="IMessageQueueAdapter.cs" />
-    <Compile Include="IMessageQueueProducerAdapter.cs" />
-    <Compile Include="MessageQueueAdapter.cs" />
-    <Compile Include="MessageQueueProducerAdapter.cs" />
+    <Compile Include="Facade\IMQConsumerFacade.cs" />
+    <Compile Include="Facade\IMQProducerFacade.cs" />
+    <Compile Include="Facade\MessageQueueAdapter.cs" />
+    <Compile Include="Facade\MessageQueueProducerAdapter.cs" />
     <Compile Include="MicroService\IMicroService.cs" />
     <Compile Include="MicroService\PushNotificationService.cs" />
+    <Compile Include="MicroService\SentEmailService.cs" />
     <Compile Include="Producer\AMQPAdapter.cs" />
     <Compile Include="Producer\RMQAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,7 +9,7 @@ namespace RMQ.Core.MicroService
 {
     public class PushNotificationService : IMicroService //RMQConsumer
     {
-        private IMessageQueueAdapter<PushNotificationService> _Adapter;
+        private IMQConsumerFacade<PushNotificationService> _Adapter;
        // private RMQConsumer _RMQConsumer;
         public PushNotificationService(string queueName, int timeout, ushort prefetchCount = 1
             , bool noAck = false

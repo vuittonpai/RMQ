@@ -15,7 +15,7 @@ namespace RMQ.Core.MicroService
             , bool noAck = false, IDictionary<string, object> queueArgs = null
             , int ConsumerNumber = 2, int MessageNumber = 10)
         {
-            _Adapter = new MessageQueueAdapter<SentEmailService>(queueName, timeout, prefetchCount, noAck, queueArgs, ConsumerNumber, MessageNumber);
+            _Adapter = new MQConsumerFacade<SentEmailService>(queueName, timeout, prefetchCount, noAck, queueArgs, ConsumerNumber, MessageNumber);
         }
 
         public void Init(string ip, int port, string userName, string password, ushort heartbeat)

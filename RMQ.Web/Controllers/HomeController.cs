@@ -28,7 +28,7 @@ namespace RMQ.Web.Controllers
             ViewBag.Message = "Your contact page.";
             //修改方法二: 多一層介面
             
-            var MQAdapter = new MessageQueueProducerAdapter();
+            var MQAdapter = new MQProducerFacade();
             if (!MQAdapter.IsConnected())
             {
                 MQAdapter.Init("127.0.0.1", 5672, "guest", "guest", 30);

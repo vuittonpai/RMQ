@@ -5,13 +5,13 @@ using RMQ.Core.EventArg;
 
 namespace RMQ.Core.Producer
 {
-    public class MessageQueueAdapter<T> : RMQConsumer, IMQConsumerFacade<T>, IDisposable
+    public class MQConsumerFacade<T> : RMQConsumer, IMQConsumerFacade<T>, IDisposable
         where T : class
     {
         
 
         public RMQAdapter Adapter { get; set; }
-        public MessageQueueAdapter
+        public MQConsumerFacade
             (string queueName, int timeout, ushort prefetchCount = 1
             , bool noAck = false, IDictionary<string, object> queueArgs = null
             , int ConsumerNumber = 2, int MessageNumber = 10)

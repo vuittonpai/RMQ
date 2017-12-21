@@ -9,7 +9,7 @@ namespace RMQ.Core.Producer
         void Connect();        
         void Publish(string queueName, string message);
         void Disconnect();
-        void GetReturnMessage();
+        string GetReturnMessage(string replyQueue);
 
     }
 }

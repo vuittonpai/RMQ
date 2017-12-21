@@ -7,12 +7,10 @@ namespace RMQ.Core.Producer
     /// 這個是給Producer用
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MessageQueueProducerAdapter : IMQProducerFacade
+    public class MQProducerFacade : IMQProducerFacade
     {
-        //public event EventHandler<MessageReceivedEventArgs> moveMessageLogicToFront;
-
         public RMQAdapter Adapter { get; set; }
-        public MessageQueueProducerAdapter()
+        public MQProducerFacade()
         {
             Adapter = RMQAdapter.Instance;
         }

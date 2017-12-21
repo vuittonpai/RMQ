@@ -53,8 +53,8 @@
     <Compile Include="EventArg\MessageReceivedEventArgs.cs" />
     <Compile Include="Facade\IMQConsumerFacade.cs" />
     <Compile Include="Facade\IMQProducerFacade.cs" />
-    <Compile Include="Facade\MessageQueueAdapter.cs" />
-    <Compile Include="Facade\MessageQueueProducerAdapter.cs" />
+    <Compile Include="Facade\MQConsumerFacade.cs" />
+    <Compile Include="Facade\MQProducerFacade.cs" />
     <Compile Include="MicroService\IMicroService.cs" />
     <Compile Include="MicroService\PushNotificationService.cs" />
     <Compile Include="MicroService\SentEmailService.cs" />

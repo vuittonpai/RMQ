@@ -17,7 +17,7 @@ namespace RMQ.WebApi.Controllers
         [HttpGet]
         public string Produce()
         {
-            MessageQueueProducerAdapter MQAdapter = new MessageQueueProducerAdapter();
+            IMQProducerFacade MQAdapter = new MQProducerFacade();
             if (!MQAdapter.IsConnected())
             {
                 MQAdapter.Init("127.0.0.1", 5672, "guest", "guest", 30);

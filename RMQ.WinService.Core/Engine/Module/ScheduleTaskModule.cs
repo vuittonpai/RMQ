@@ -65,7 +65,7 @@ namespace RMQ.WinService.Core.Engine.Module
                 //**************************成功******************************
 
                 //***************OptionIII 讀取單線程那版的架構方法()***********
-                IMQConsumerFacade<PushNotificationService> adapter = new MessageQueueAdapter<PushNotificationService>(queueName, 60, 10, false, null, 2, 10);
+                IMQConsumerFacade<PushNotificationService> adapter = new MQConsumerFacade<PushNotificationService>(queueName, 60, 10, false, null, 2, 10);
                 adapter.Init("localhost", 5672, "guest", "guest", 30);
                 adapter.Connect();
                 task = JsonConvert.DeserializeObject<ScheduleTask>(adapter.StartDequeue());

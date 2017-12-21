@@ -18,7 +18,7 @@ namespace RMQ.Core.MicroService
         //: base(queueName, timeout, prefetchCount, noAck, queueArgs)
         {
             //建立Consumer的參數
-            _Adapter = new MessageQueueAdapter<PushNotificationService>(queueName, timeout, prefetchCount, noAck, queueArgs, ConsumerNumber, MessageNumber);
+            _Adapter = new MQConsumerFacade<PushNotificationService>(queueName, timeout, prefetchCount, noAck, queueArgs, ConsumerNumber, MessageNumber);
         }
 
 

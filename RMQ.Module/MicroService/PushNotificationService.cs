@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using RMQ.Core.DTO;
 using RMQ.Core.EventArg;
-using RMQ.Core.Producer;
+using RMQ.Core.Facade;
 using System;
 using System.Collections.Generic;
 

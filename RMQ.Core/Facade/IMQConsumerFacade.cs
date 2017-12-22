@@ -1,7 +1,7 @@
 ﻿using RMQ.Core.EventArg;
 using System;
 
-namespace RMQ.Core.Producer
+namespace RMQ.Core.Facade
 {
     public interface IMQConsumerFacade<T>
     {

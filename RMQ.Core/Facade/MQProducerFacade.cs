@@ -1,7 +1,8 @@
 ﻿using System;
 using RMQ.Core.EventArg;
+using RMQ.Core.Adapter;
 
-namespace RMQ.Core.Producer
+namespace RMQ.Core.Facade
 {
     /// <summary>
     /// 這個是給Producer用

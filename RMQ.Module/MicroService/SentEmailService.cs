@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RMQ.Core.EventArg;
-using RMQ.Core.Producer;
+using RMQ.Core.Facade;
 
 namespace RMQ.Core.MicroService
 {

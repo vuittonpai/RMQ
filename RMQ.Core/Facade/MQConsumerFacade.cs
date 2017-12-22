@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using RMQ.Core.Consumer;
 using RMQ.Core.EventArg;
+using RMQ.Core.Adapter;
 
-namespace RMQ.Core.Producer
+namespace RMQ.Core.Facade
 {
     public class MQConsumerFacade<T> : RMQConsumer, IMQConsumerFacade<T>
         where T : class

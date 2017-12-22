@@ -1,8 +1,8 @@
 ﻿
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RMQ.Core.Adapter;
 using RMQ.Core.EventArg;
-using RMQ.Core.Producer;
 using RMQ.Utility.Nlog;
 using System;
 using System.Collections.Generic;

@@ -55,8 +55,8 @@
     <Compile Include="Facade\IMQProducerFacade.cs" />
     <Compile Include="Facade\MQConsumerFacade.cs" />
     <Compile Include="Facade\MQProducerFacade.cs" />
-    <Compile Include="Producer\AMQPAdapter.cs" />
-    <Compile Include="Producer\RMQAdapter.cs" />
+    <Compile Include="Adapter\AMQPAdapter.cs" />
+    <Compile Include="Adapter\RMQAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

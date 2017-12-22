@@ -1,7 +1,7 @@
 ﻿
 using RabbitMQ.Client.Events;
+using RMQ.Core.Adapter;
 using RMQ.Core.EventArg;
-using RMQ.Core.Producer;
 using System;
 using System.Collections.Generic;
 
@@ -23,7 +23,7 @@ namespace RMQ.Core.Consumer
             this.queueName = queueName;
             this.prefetchCount = prefetchCount;
             this.noAck = noAck;
-            this.timeout = timeout;//The timeout is in millseconds, 之前是給Dequeue mehtod 用，但我改用新的EventingBasicConsumer去取
+            this.timeout = timeout;//The timeout is in millseconds, 給Dequeue mehtod 用
             this.queueArgs = queueArgs;//預留
         }
 

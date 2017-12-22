@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using RMQ.Core.Producer;
+using RMQ.Core.Facade;
 using RMQ.Core.DTO;
 using RMQ.Utility.Nlog;
 using RMQ.WinService.Core.Engine.Adapter;

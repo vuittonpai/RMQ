@@ -1,6 +1,6 @@
 ﻿
 
-namespace RMQ.Core.Producer
+namespace RMQ.Core.Facade
 {
     public interface IMQProducerFacade
     {

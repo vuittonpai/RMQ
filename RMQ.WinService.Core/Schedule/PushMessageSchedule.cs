@@ -21,11 +21,9 @@ namespace RMQ.WinService.Core.Schedule
         /// <returns></returns>
         protected override bool Work()
         {
-            
             Console.WriteLine("商業邏輯: " + Task.ScheduleData);
             SendMe(Task.ScheduleData);
             return (!string.IsNullOrEmpty(Task.ScheduleData));
-
         }
 
 

@@ -88,7 +88,7 @@ namespace RMQ.Core.Consumer
                             channel.BasicQos(0, prefetchCount, false);
 
                             var consumer = new EventingBasicConsumer(channel);
-                            consumer.Received += OnConsumer_ReceivedIIAAA;
+                            consumer.Received += OnConsumer_ReceivedII;
                             var test = channel.BasicConsume(queueName, noAck, consumer);
                             logger.Info($"{DateTime.Now} Info: Consumer啟動。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
                         }
@@ -169,7 +169,7 @@ namespace RMQ.Core.Consumer
         }
        
         //// 方法二: 使用EventHandler 取接，
-        protected void OnConsumer_ReceivedIIAAA(object sender, BasicDeliverEventArgs e)
+        protected void OnConsumer_ReceivedII(object sender, BasicDeliverEventArgs e)
         {
             
             try

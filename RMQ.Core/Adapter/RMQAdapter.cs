@@ -7,6 +7,10 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Threading;
 using RMQ.Utility.Nlog;
+using System.Configuration;
+using RMQ.Utility;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace RMQ.Core.Adapter
 {
@@ -41,7 +45,55 @@ namespace RMQ.Core.Adapter
             _connection.ConnectionShutdown += Connection_ConnectionShutdown;
         }
 
-        
+        public void ConnectionII()
+        {
+            Regex rxUri = new Regex(@"^amqp://(.*?):(.*?)@(.*)$", RegexOptions.Compiled);
+            string uriSetting = ConfigurationManager.AppSettings["rmqUri"];
+
+            var uriItems = rxUri.Match(uriSetting).Groups;
+            if (uriItems.Count != 4)
+                throw new Exception("rmqUri設定錯誤");
+
+            List<AmqpTcpEndpoint> amqpEndpoints = new List<AmqpTcpEndpoint>();
+            foreach (var host in uriItems[3].Value.Split(','))
+            {
+                var h = host.Split(':');
+                amqpEndpoints.Add(new AmqpTcpEndpoint()
+                {
+                    HostName = h[0],
+                    Port = Convert.ToInt32(h[1]),
+                });
+            }
+
+            var connectionFactory = new ConnectionFactory
+            {
+                UserName = uriItems[1].Value,
+                Password = uriItems[2].Value,
+                RequestedHeartbeat = 60,//heartbeat, //seconds
+                AutomaticRecoveryEnabled = true,
+                NetworkRecoveryInterval = TimeSpan.FromMilliseconds(100), //斷線後，每100毫秒重新連接
+
+                //HostName = hostName,
+                //Port = port
+
+            };
+            var process = Process.GetCurrentProcess();
+            string rmqClientName = string.Format("{0}#{1}", process.ProcessName, process.Id);
+
+            var ers = connectionFactory.EndpointResolverFactory(amqpEndpoints);
+           
+
+            //回復連線機制: Connection Recovery
+            connectionFactory.AutomaticRecoveryEnabled = true;
+            connectionFactory.NetworkRecoveryInterval = TimeSpan.FromSeconds(20);//斷線後，每20秒重新連接
+
+            _connection = connectionFactory.CreateConnection(ers, rmqClientName);
+            //_connection = connectionFactory.CreateConnection();
+            _connection.CallbackException += Connection_CallbackException;
+            _connection.ConnectionShutdown += Connection_ConnectionShutdown;
+        }
+
+
         internal string GetReturnMessage(string queueName)
         {
             try
@@ -88,6 +140,16 @@ namespace RMQ.Core.Adapter
 
         public override object GetConnection() => _connection;
 
+        public override AMQPAdapter Init()
+        {
+            this.hostName = AppSettingConfig.getAppSettings("hostName");
+            this.port = AppSettingConfig.getAppSettings("port", "5672");
+            this.userName = AppSettingConfig.getAppSettings("userName");
+            this.password = AppSettingConfig.getAppSettings("password");
+            this.heartbeat = AppSettingConfig.getAppSettingsUshort("heartbeat", "30");
+            return this;
+        }
+
         public override AMQPAdapter Init(string hostName, int port, string userName, string password, ushort heartbeat)
         {
             this.hostName = hostName;
@@ -98,7 +160,7 @@ namespace RMQ.Core.Adapter
             return this;
         }
 
-        
+
         public override void Publish(string queueName, string message, bool createQueue = true, IBasicProperties messageProperties = null, IDictionary<string, object> queueArgs = null)
         {
             try

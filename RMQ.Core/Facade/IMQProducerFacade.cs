@@ -5,7 +5,7 @@ namespace RMQ.Core.Facade
     public interface IMQProducerFacade
     {
         bool IsConnected();
-        void Init(string ip, int port, string userName, string password, ushort heartbeat);
+        void Init();
         void Connect();        
         void Publish(string queueName, string message);
         void Disconnect();

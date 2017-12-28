@@ -18,12 +18,12 @@ namespace RMQ.Core.Facade
        
         public void Connect()
         {
-            Adapter.Connect();
+            Adapter.ConnectionII();
         }
        
-        public void Init(string ip, int port, string userName, string password, ushort heartbeat)
+        public void Init()
         {
-            Adapter.Init(ip, port, userName, password, heartbeat);
+            Adapter.Init();
         }
 
         public bool IsConnected()

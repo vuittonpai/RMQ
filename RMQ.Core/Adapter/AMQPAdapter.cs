@@ -17,6 +17,7 @@ namespace RMQ.Core.Adapter
 
         public abstract bool IsConnected { get; }
         public abstract AMQPAdapter Init(string ip, int port, string userName, string password, ushort heartbeat);
+        public abstract AMQPAdapter Init();
         public abstract void Connect();
         public abstract void Disconnect();
         public abstract object GetConnection();

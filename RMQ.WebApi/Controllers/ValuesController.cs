@@ -20,15 +20,14 @@ namespace RMQ.WebApi.Controllers
             IMQProducerFacade MQAdapter = new MQProducerFacade();
             if (!MQAdapter.IsConnected())
             {
-                MQAdapter.Init("127.0.0.1", 5672, "guest", "guest", 30);
+                //MQAdapter.Init();
                 MQAdapter.Connect();
             }
             string message = SetMessage();
             string queueName = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
             MQAdapter.Publish(queueName, message);
-            
-            string replyQueue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.ReplyMessage";
-            return MQAdapter.GetReturnMessage(replyQueue);
+
+            return "Sent Success";
       
         }
 

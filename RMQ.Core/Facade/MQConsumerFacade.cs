@@ -36,9 +36,9 @@ namespace RMQ.Core.Facade
             Adapter.Connect();
         }
        
-        public void Init(string ip, int port, string userName, string password, ushort heartbeat)
+        public void Init()
         {
-            Adapter.Init(ip, port, userName, password, heartbeat);
+            Adapter.Init();
         }
 
         public bool IsConnected()

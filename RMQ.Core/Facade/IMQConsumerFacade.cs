@@ -6,7 +6,7 @@ namespace RMQ.Core.Facade
     public interface IMQConsumerFacade<T>
     {
         bool IsConnected();
-        void Init(string ip, int port, string userName, string password, ushort heartbeat);
+        void Init();
         void Connect();
         void Comsume();
         void Publish(string queueName, string message);

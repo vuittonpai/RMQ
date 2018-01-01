@@ -21,10 +21,9 @@ namespace RMQ.Core.MicroService
             _Adapter = new MQConsumerFacade<PushNotificationService>(queueName, timeout, prefetchCount, noAck, queueArgs, ConsumerNumber, MessageNumber);
         }
                 
-        public void Init(string ip, int port, string userName, string password, ushort heartbeat)
+        public void Init()
         {
-           
-            _Adapter.Init(ip, port, userName, password, heartbeat);
+            //_Adapter.Init(ip, port, userName, password, heartbeat);
             _Adapter.Connect();
             _Adapter.MessageReceivedII += OnMessageReceived;
         }

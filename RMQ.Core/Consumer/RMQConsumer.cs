@@ -46,12 +46,12 @@ namespace RMQ.Core.Consumer
                             channel.BasicQos(0, prefetchCount, false);
 
                             var consumer = new EventingBasicConsumer(channel);
-                            consumer.Received += OnConsumer_ReceivedIIIAsync;
+                            consumer.Received += OnConsumer_ReceivedII;
                             channel.BasicConsume(queueName, noAck, consumer);
                         }
                         else
                         {
-                            //Thread.Sleep(1000);
+                            Thread.Sleep(3000);
                         }
                     }
                 }
@@ -192,24 +192,7 @@ namespace RMQ.Core.Consumer
             }
             
         }
-
-        protected void OnConsumer_ReceivedIIIAsync(object sender, BasicDeliverEventArgs e)
-        {
-            try
-            {
-                var consumer = sender as EventingBasicConsumer;
-                var message = Encoding.UTF8.GetString(e.Body);
-                logger.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
-                AcknowledgeMessage(e.DeliveryTag, consumer.Model);
-            }
-            catch (Exception exception)
-            {
-                stopConsuming = true;
-                Thread.CurrentThread.Abort();
-                throw exception;
-            }
-
-        }
+        
 
         public void AcknowledgeMessage(ulong deliveryTag, IModel channel)
         {

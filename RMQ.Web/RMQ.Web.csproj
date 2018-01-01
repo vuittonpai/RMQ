@@ -56,9 +56,6 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="RMQ.Module">
-      <HintPath>..\RMQ.Module\bin\Debug\RMQ.Module.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -219,6 +216,10 @@
     <ProjectReference Include="..\RMQ.Core\RMQ.Core.csproj">
       <Project>{42472B50-D972-4511-9635-ADF0681B868C}</Project>
       <Name>RMQ.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RMQ.Module\RMQ.Module.csproj">
+      <Project>{c345e9fe-6ea0-49d6-81ec-1f113a618af2}</Project>
+      <Name>RMQ.Module</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

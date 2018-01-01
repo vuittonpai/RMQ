@@ -18,7 +18,7 @@ namespace RMQ.Core.Facade
        
         public void Connect()
         {
-            Adapter.ConnectionII();
+            Adapter.Connect();
         }
        
         public void Init()

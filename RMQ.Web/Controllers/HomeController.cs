@@ -22,7 +22,7 @@ namespace RMQ.Web.Controllers
         {
             string queue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
             IAsyncMicroService Receiver = new SentEmailService(queue, 60, 10, false, null, 2, 10);
-            Receiver.Init("localhost", 5672, "guest", "guest", 30);
+            Receiver.Init();
             Receiver.StartAsync();
 
             return Json("Success, StartAsync()", JsonRequestBehavior.AllowGet);

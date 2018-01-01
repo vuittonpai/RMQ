@@ -9,7 +9,7 @@ namespace RMQ.Core.MicroService
 {
     public interface IAsyncMicroService
     {
-        void Init(string ip, int port, string userName, string password, ushort heartbeat);
+        void Init();
         void StartAsync();
         void OnMessageReceived(object sender, MessageReceivedEventArgs e);
     }

@@ -25,27 +25,27 @@ namespace RMQ.Core.Adapter
 
         public override bool IsConnected => (_connection!=null && _connection.IsOpen);
         
-        public override void Connect()
-        {
-            var connectionFactory = new ConnectionFactory
-            {
-                HostName = hostName,
-                Port = port,
-                UserName = userName,
-                Password = password,
-                RequestedHeartbeat = heartbeat //seconds
+        //public override void Connect()
+        //{
+        //    var connectionFactory = new ConnectionFactory
+        //    {
+        //        HostName = hostName,
+        //        Port = port,
+        //        UserName = userName,
+        //        Password = password,
+        //        RequestedHeartbeat = heartbeat //seconds
                 
-            };
-            //回復連線機制: Connection Recovery
-            connectionFactory.AutomaticRecoveryEnabled = true;
-            connectionFactory.NetworkRecoveryInterval = TimeSpan.FromSeconds(20);
+        //    };
+        //    //回復連線機制: Connection Recovery
+        //    connectionFactory.AutomaticRecoveryEnabled = true;
+        //    connectionFactory.NetworkRecoveryInterval = TimeSpan.FromSeconds(20);
 
-            _connection = connectionFactory.CreateConnection();
-            _connection.CallbackException += Connection_CallbackException;
-            _connection.ConnectionShutdown += Connection_ConnectionShutdown;
-        }
+        //    _connection = connectionFactory.CreateConnection();
+        //    _connection.CallbackException += Connection_CallbackException;
+        //    _connection.ConnectionShutdown += Connection_ConnectionShutdown;
+        //}
 
-        public void ConnectionII()
+        public override void Connect()
         {
             Regex rxUri = new Regex(@"^amqp://(.*?):(.*?)@(.*)$", RegexOptions.Compiled);
             string uriSetting = ConfigurationManager.AppSettings["rmqUri"];

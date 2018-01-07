@@ -16,7 +16,7 @@ namespace RMQ.WinService.Core.Schedule
 
 
         /// <summary>
-        /// 實作執行 商業邏輯
+        /// 實作執行 該清單表的商業邏輯
         /// </summary>
         /// <returns></returns>
         protected override bool Work()
@@ -26,7 +26,10 @@ namespace RMQ.WinService.Core.Schedule
             return (!string.IsNullOrEmpty(Task.ScheduleData));
         }
 
-
+        /// <summary>
+        /// 寄送Email
+        /// </summary>
+        /// <param name="messages"></param>
         private static void SendMe(string messages)
         {
             try

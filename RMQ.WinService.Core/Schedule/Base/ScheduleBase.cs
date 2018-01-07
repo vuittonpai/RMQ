@@ -47,7 +47,10 @@ namespace RMQ.WinService.Core.Schedule.Base
             if (_OnFinished != null)
                 _OnFinished(this, _Id, workResult, _Message, workSeconds);
         }
-
+        /// <summary>
+        /// 抽象化該清單表的工作
+        /// </summary>
+        /// <returns></returns>
         protected abstract bool Work();
     }
 }

@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RMQ.WinService
 {
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// 主要服務進入點
         /// </summary>
         static void Main()
         {
-            // Run Service
             ServiceBase[] services =
             {
-                new NotificationService()
+                new NotificationService()//之後改泛型
             };
             if (Environment.UserInteractive)
             {
@@ -30,6 +25,10 @@ namespace RMQ.WinService
                 ServiceBase.Run(services);
             }
         }
+        /// <summary>
+        /// 當Debug狀態
+        /// </summary>
+        /// <param name="services"></param>
          public static void RunInteractive(ServiceBase[] services)
         {
             Console.WriteLine();
@@ -38,7 +37,7 @@ namespace RMQ.WinService
             // Get the method to invoke on each service to start it
             var onStartMethod =
                 typeof(ServiceBase).GetMethod("OnStart", BindingFlags.Instance | BindingFlags.NonPublic);
-            // Start services loop
+            // 啟動服務迴圈
             foreach (var service in services)
             {
                 Console.WriteLine("Installing {0} ... ", service.ServiceName);
@@ -46,13 +45,13 @@ namespace RMQ.WinService
                 Console.WriteLine("Installed {0} ", service.ServiceName);
                 Console.WriteLine();
             }
-            // Waiting the end
+            // 等待
             Console.WriteLine("Press a key to uninstall all services...");
             Console.ReadKey();
             Console.WriteLine();
-            // Get the method to invoke on each service to stop it
+            // 取得服務關閉功能，關閉服務
             var onStopMethod = typeof(ServiceBase).GetMethod("OnStop", BindingFlags.Instance | BindingFlags.NonPublic);
-            // Stop loop
+            // 關閉迴圈
             foreach (var service in services)
             {
                 Console.Write("Uninstalling {0} ... ", service.ServiceName);
@@ -61,7 +60,7 @@ namespace RMQ.WinService
             }
             Console.WriteLine();
             Console.WriteLine("All services are uninstalled.");
-            // Waiting a key press to not return to VS directly
+            // 等待任何key Enter就結束程序
             if (Debugger.IsAttached)
             {
                 Console.WriteLine();

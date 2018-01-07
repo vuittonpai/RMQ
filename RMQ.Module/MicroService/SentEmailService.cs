@@ -17,39 +17,34 @@ namespace RMQ.Core.MicroService
         {
             _Adapter = new MQConsumerFacade<SentEmailService>(queueName, timeout, prefetchCount, noAck, queueArgs, ConsumerNumber, MessageNumber);
         }
-
-        public void Init()
+        /// <summary>
+        /// 建構連線
+        /// 設定回傳方法，一定要設定，不然服務之間無法溝通
+        /// </summary>
+        public void Connect()
         {
             //_Adapter.Init(ip, port, userName, password, heartbeat);
             _Adapter.Connect();
             _Adapter.MessageReceivedII += OnMessageReceived;
         }
-
+        /// <summary>
+        /// 回傳方法實作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             string queue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.ReplyMessage";
             _Adapter.Publish(queue, e.Message + "成功收到了");
             Console.WriteLine("OnMessageReceived收到訊息: " + e.Message + " 時間: " + DateTime.Now.ToLongDateString());
         }
-
-        public void Shutdown()
-        {
-            if (_Adapter == null) return; else _Adapter.Disconnect();
-        }
-
-        public void Start()
-        {
-            _Adapter.Comsume();
-        }
-
+        /// <summary>
+        /// 啟用服務之間溝通
+        /// </summary>
         public void StartAsync()
         {
             _Adapter.StartAsync(this);
         }
 
-        public string StartDequeue()
-        {
-            return _Adapter.StartDequeue();
-        }
     }
 }

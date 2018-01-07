@@ -49,12 +49,12 @@ namespace RMQ.Utility.Nlog
 
         public void Debug(object message)
         {
-            logger.Debug(message);
+            logger?.Debug(message);
         }
 
         public void Info(object message)
         {
-            logger.Info(message);
+            logger?.Info(message);
         }
 
         public void InfoStatic(object message)
@@ -65,23 +65,23 @@ namespace RMQ.Utility.Nlog
 
         public void Warn(object message)
         {
-            logger.Warn(message);
+            logger?.Warn(message);
         }
 
         public void Error(object message)
         {
-            logger.Error(message);
+            logger?.Error(message);
         }
 
         public void Fatal(object message)
         {
-            logger.Fatal(message);
+            logger?.Fatal(message);
         }
 
         public void Trace(string message)
         {
 
-            logger.Info(message);
+            logger?.Info(message);
         }
 
     }

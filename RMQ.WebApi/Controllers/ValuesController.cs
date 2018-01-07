@@ -36,7 +36,7 @@ namespace RMQ.WebApi.Controllers
         {
             string queue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
             IAsyncMicroService Receiver = new SentEmailService(queue, 60, 10, false, null, 2, 10);
-            Receiver.Init();
+            //Receiver.Init();
             Receiver.StartAsync();
 
             return new string[] { "Success", "StartAsync()" };

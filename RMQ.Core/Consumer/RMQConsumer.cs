@@ -20,14 +20,28 @@ namespace RMQ.Core.Consumer
         : base(queueName, timeout, prefetchCount, noAck, queueArgs)
         { }
 
-        private NLogService logger = new NLogService("RMQ.Adapter.RMQConsumer");
+        //private NLogService logger = new NLogService("RMQ.Adapter.RMQConsumer");
+        //EX: logger.Info($"{DateTime.Now} Info: Consumer啟動。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
+
+        private string returnMessage = string.Empty;
+        /// <summary>
+        /// 觸發機制
+        /// </summary>
         public event EventHandler<MessageReceivedEventArgs> _MessageReceived;
-        //觸發機制，讓前面去實作商業邏輯
+
+        /// <summary>
+        /// 將錯誤訊息往前丟，搭配封裝內容模式
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             _MessageReceived?.Invoke(this, e);
         }
-
+        /// <summary>
+        /// 背景Consumer處理服務之間的溝通
+        /// </summary>
+        /// <param name="amqpAdapter"></param>
         internal override void StartAsync(AMQPAdapter amqpAdapter)
         {
             try
@@ -68,7 +82,10 @@ namespace RMQ.Core.Consumer
                 });
             }
         }
-
+        /// <summary>
+        /// 有輪圈功能的Consumer
+        /// </summary>
+        /// <param name="amqpAdapter"></param>
         internal override void Start(AMQPAdapter amqpAdapter)
         {
             try
@@ -90,7 +107,8 @@ namespace RMQ.Core.Consumer
                             var consumer = new EventingBasicConsumer(channel);
                             consumer.Received += OnConsumer_ReceivedII;
                             var test = channel.BasicConsume(queueName, noAck, consumer);
-                            logger.Info($"{DateTime.Now} Info: Consumer啟動。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
+                            
+                            NLogService.Instance.Info($"{DateTime.Now} Info: Consumer啟動。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
                         }
                         else
                         {
@@ -117,7 +135,11 @@ namespace RMQ.Core.Consumer
             }
         }
 
-        private string returnMessage = "";
+        /// <summary>
+        /// 單一程序取得Q訊息用
+        /// </summary>
+        /// <param name="amqpAdapter"></param>
+        /// <returns></returns>
         internal override string StartDequeue(AMQPAdapter amqpAdapter)
         {
             try
@@ -142,9 +164,9 @@ namespace RMQ.Core.Consumer
                         IBasicProperties props = result.BasicProperties;
                         byte[] body = result.Body;
                         returnMessage = Encoding.UTF8.GetString(body);
-                        logger.Info($"{DateTime.Now} {channel.ChannelNumber} Info: 接收訊息。 QueueName= {queueName} Message: {returnMessage}");
                         channel.BasicAck(result.DeliveryTag, false);
-                        logger.Info($"{DateTime.Now} {channel.ChannelNumber} Info: 回應收到。 QueueName= {queueName} Message: {returnMessage}");
+
+                        NLogService.Instance.Info($"{DateTime.Now} {channel.ChannelNumber} Info: 取得訊息。 QueueName= {queueName} Message: {returnMessage}");
                     }
                 }
                 return returnMessage;
@@ -157,7 +179,7 @@ namespace RMQ.Core.Consumer
             }
             catch (Exception e)
             {
-                logger.Error($"{DateTime.Now}Error: TimeoutException={ e.Message} StackTrace: {e.StackTrace}");
+                NLogService.Instance.Error($"{DateTime.Now}Error: TimeoutException={ e.Message} StackTrace: {e.StackTrace}");
                 Console.WriteLine(e);
                 //OnMessageReceived(new MessageReceivedEventArgs
                 //{
@@ -167,16 +189,19 @@ namespace RMQ.Core.Consumer
                 return returnMessage;
             }
         }
-       
-        //// 方法二: 使用EventHandler 取接，
+
+        /// <summary>
+        /// 方法二: 使用EventHandler接取有輪圈的Consumer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnConsumer_ReceivedII(object sender, BasicDeliverEventArgs e)
         {
-            
             try
             {
                 var consumer = sender as EventingBasicConsumer;
                 var message = Encoding.UTF8.GetString(e.Body);
-                logger.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
+                NLogService.Instance.Info($"{DateTime.Now} Info: 回應收到。ConsumerTag: {consumer.ConsumerTag}。QueueName= {queueName}。Message: {returnMessage}");
                 _MessageReceived?.Invoke(this, new MessageReceivedEventArgs {
                     Message = message,
                     EventArgs = e
@@ -193,24 +218,36 @@ namespace RMQ.Core.Consumer
             
         }
         
-
-        public void AcknowledgeMessage(ulong deliveryTag, IModel channel)
+        /// <summary>
+        /// 回應Queue該訊息已完成
+        /// </summary>
+        /// <param name="deliveryTag"></param>
+        /// <param name="channel"></param>
+        private void AcknowledgeMessage(ulong deliveryTag, IModel channel)
         {
-            logger.Info($"{DateTime.Now} Info: 回應收到。DeliveryTag: {deliveryTag}。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
+            NLogService.Instance.Info($"{DateTime.Now} Info: 回應收到。DeliveryTag: {deliveryTag}。channel: {channel.ChannelNumber}。QueueName= {queueName}。Message: {returnMessage}");
             channel.BasicAck(deliveryTag, false);
         }
 
-
-        private void HandleBasicCancelOk(string consumerTag)
-        {
-
-        }
-
+        /// <summary>
+        /// Channel關閉
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="reason"></param>
         private void Channel_ModelShutdown(object model, ShutdownEventArgs reason)
         {
-            //logger.Error($"{DateTime.Now} Error: CHANNEL__MODEL_SHUTDOWN()。 model= {model} Message: {reason.Cause}");
             Console.WriteLine("CHANNEL__MODEL_SHUTDOWN " + reason.ToString());
         }
+
+        /// <summary>
+        /// 取消掉已傳送的Message
+        /// </summary>
+        /// <param name="consumerTag"></param>
+        private void HandleBasicCancel(string consumerTag)
+        {
+
+        }
+
 
     }
 }

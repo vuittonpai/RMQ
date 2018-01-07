@@ -16,13 +16,14 @@ namespace RMQ.Web.Controllers
 
         /// <summary>
         /// 非同步方式啟另一個consumer服務
+        /// 實驗服務之間的溝通
         /// </summary>
         /// <returns></returns>
         public JsonResult Consumer()
         {
             string queue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
             IAsyncMicroService Receiver = new SentEmailService(queue, 60, 10, false, null, 2, 10);
-            Receiver.Init();
+            Receiver.Connect();
             Receiver.StartAsync();
 
             return Json("Success, StartAsync()", JsonRequestBehavior.AllowGet);
@@ -33,21 +34,18 @@ namespace RMQ.Web.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult About()
-        {            
-            
-            //producer
-            IMQProducerFacade MQAdapter = new MQProducerFacade();
+        {     
+            var MQAdapter = new MQProducerFacade();
             if (!MQAdapter.IsConnected())
             {
-                MQAdapter.Init();
                 MQAdapter.Connect();
             }
             string message = SetMessage();
             string queueName = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
             MQAdapter.Publish(queueName, message);
-
+            //接收回傳
             string replyQueue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.ReplyMessage";
-            ViewBag.Message =  MQAdapter.GetReturnMessage(replyQueue);
+            ViewBag.Message = MQAdapter.GetReturnMessage(replyQueue);
 
             return View();
         }
@@ -63,7 +61,7 @@ namespace RMQ.Web.Controllers
             var MQAdapter = new MQProducerFacade();
             if (!MQAdapter.IsConnected())
             {
-                MQAdapter.Init();
+                //MQAdapter.Init();
                 MQAdapter.Connect();
             }
             string message = SetMessage();

@@ -12,7 +12,7 @@ namespace RMQ.Job
         {
             string queue = $"MQ{DateTime.Now.ToString("yyyyMMdd")}.TaskQueue";
             Receiver = new PushNotificationService(queue, 60, 10, false, null, 2, 10);
-            Receiver.Init();
+            Receiver.Connect();
             Receiver.Start();
             Receiver.Shutdown();//跑Job有個問題是，他不會斷連線。需要而外處理或是讓他打keyword跳出，目前只是demo用，所以先不管。好像又可以。奇怪
         }

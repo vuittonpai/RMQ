@@ -20,31 +20,42 @@ namespace RMQ.Core.MicroService
         {
             _Adapter = new MQConsumerFacade<PushNotificationService>(queueName, timeout, prefetchCount, noAck, queueArgs, ConsumerNumber, MessageNumber);
         }
-                
-        public void Init()
+        /// <summary>
+        /// 建構連線
+        /// 設定回傳方法
+        /// </summary>
+        public void Connect()
         {
             //_Adapter.Init(ip, port, userName, password, heartbeat);
             _Adapter.Connect();
             _Adapter.MessageReceivedII += OnMessageReceived;
         }
-
-        public void Start()
-        {
-            _Adapter.Comsume();
-        }
-
+        /// <summary>
+        /// 實作回傳方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             //商業邏輯的專案在這個
             var result = JsonConvert.DeserializeObject<ScheduleTask>(e.Message);
             Console.WriteLine("OnMessageReceived收到訊息: " + result.ScheduleData + " 時間: " + DateTime.Now.ToLongDateString());
         }
-
+        /// <summary>
+        /// 結束連線      
+        /// </summary>
         public void Shutdown() 
         {
             if (_Adapter == null) return;
 
             _Adapter.Disconnect();
+        }
+        /// <summary>
+        /// 啟用Consumer
+        /// </summary>
+        public void Start()
+        {
+            _Adapter.Comsume();
         }
 
 

@@ -19,47 +19,67 @@ namespace RMQ.Core.Facade
             Adapter = RMQAdapter.Instance;
             base._MessageReceived += OnMessageReceived;
         }
-
+        /// <summary>
+        /// 啟動Consumer
+        /// </summary>
         public void Comsume()
         {
             base.Start(Adapter);
         }
+        /// <summary>
+        /// 觸發機制
+        /// </summary>
         public event EventHandler<MessageReceivedEventArgs> MessageReceivedII;
+        /// <summary>
+        /// 將訊息往前丟，搭配封裝內容模式
+        /// </summary>
         public new void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            //再往外丟
             MessageReceivedII?.Invoke(this, e);
         }
-
+        /// <summary>
+        /// 建立連線
+        /// </summary>
         public void Connect()
         {
             Adapter.Connect();
         }
-       
-        public void Init()
-        {
-            Adapter.Init();
-        }
-
+        /// <summary>
+        /// 是否連線
+        /// </summary>
+        /// <returns></returns>
         public bool IsConnected()
         {
             return Adapter.IsConnected;
         }
-    
+        /// <summary>
+        /// Producer端發送訊息
+        /// </summary>
+        /// <param name="queueName"></param>
+        /// <param name="message"></param>
         public void Publish(string queueName, string message)
         {
             Adapter.Publish(queueName, message);
         }
-
+        /// <summary>
+        /// 啟用服務之間溝通
+        /// </summary>
+        /// <param name="microserviceService"></param>
         public void StartAsync(T microserviceService)
         {            
             Adapter.StartAsync(this);
         }
+        /// <summary>
+        /// 單一程序取得Q訊息用
+        /// </summary>
+        /// <returns></returns>
         public string StartDequeue()
         {
             return base.StartDequeue(Adapter);
         }
-
+        /// <summary>
+        /// 關閉連線
+        /// </summary>
         public void Disconnect()
         {
             Adapter.Disconnect();

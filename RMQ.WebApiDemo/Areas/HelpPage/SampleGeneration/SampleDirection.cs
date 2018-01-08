@@ -1,4 +1,4 @@
-namespace RMQ.WebApi.Areas.HelpPage
+namespace RMQ.WebApiDemo.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

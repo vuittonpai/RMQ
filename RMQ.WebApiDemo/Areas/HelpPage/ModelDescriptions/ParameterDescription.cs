@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace RMQ.WebApi.Areas.HelpPage.ModelDescriptions
+namespace RMQ.WebApiDemo.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

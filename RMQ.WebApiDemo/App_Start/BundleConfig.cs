@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace RMQ.WebApi
+namespace RMQ.WebApiDemo
 {
     public class BundleConfig
     {

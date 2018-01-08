@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace RMQ.WebApi.Controllers
+namespace RMQ.WebApiDemo.Controllers
 {
     public class ValuesController : ApiController
     {
@@ -29,6 +29,24 @@ namespace RMQ.WebApi.Controllers
 
             return "Sent Success";
       
+        }
+        private string SetMessage()
+        {
+            ScheduleTask taskData = new ScheduleTask
+            {
+                ID = 1,
+                Status = ScheduleStatus.Initialized,
+                ScheduleType = ScheduleType.PushMessage,
+                Name = "dont know what this for",
+                ScheduleData = $"This is the Producer message {DateTime.Now.ToLongTimeString()}",
+                Description = "dont know what this for",
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now,
+                SubmittedDate = DateTime.Now
+
+            };
+
+            return JsonConvert.SerializeObject(taskData);
         }
 
         // GET api/values
@@ -54,24 +72,7 @@ namespace RMQ.WebApi.Controllers
             
         }
 
-        private string SetMessage()
-        {
-            ScheduleTask taskData = new ScheduleTask
-            {
-                ID = 1,
-                Status = ScheduleStatus.Initialized,
-                ScheduleType = ScheduleType.PushMessage,
-                Name = "dont know what this for",
-                ScheduleData = $"This is the Producer message {DateTime.Now.ToLongTimeString()}",
-                Description = "dont know what this for",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
-                SubmittedDate = DateTime.Now
-
-            };
-
-            return JsonConvert.SerializeObject(taskData);
-        }
+        
 
         // PUT api/values/5
         public void Put(int id, [FromBody]string value)

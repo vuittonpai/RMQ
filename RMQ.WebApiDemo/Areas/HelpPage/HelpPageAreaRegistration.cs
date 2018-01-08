@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace RMQ.WebApi.Areas.HelpPage
+namespace RMQ.WebApiDemo.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {
@@ -16,7 +16,7 @@ namespace RMQ.WebApi.Areas.HelpPage
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "HelpPage_Default",
+                "HelpPage_Default1",
                 "Help/{action}/{apiId}",
                 new { controller = "Help", action = "Index", apiId = UrlParameter.Optional });
 

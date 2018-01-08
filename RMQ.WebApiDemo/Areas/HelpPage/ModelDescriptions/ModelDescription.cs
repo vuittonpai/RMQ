@@ -1,6 +1,6 @@
 using System;
 
-namespace RMQ.WebApi.Areas.HelpPage.ModelDescriptions
+namespace RMQ.WebApiDemo.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

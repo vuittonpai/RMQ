@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using RMQ.WebApi.Areas.HelpPage.ModelDescriptions;
-using RMQ.WebApi.Areas.HelpPage.Models;
+using RMQ.WebApiDemo.Areas.HelpPage.ModelDescriptions;
+using RMQ.WebApiDemo.Areas.HelpPage.Models;
 
-namespace RMQ.WebApi.Areas.HelpPage.Controllers
+namespace RMQ.WebApiDemo.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace RMQ.WebApi.Areas.HelpPage.ModelDescriptions
+namespace RMQ.WebApiDemo.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

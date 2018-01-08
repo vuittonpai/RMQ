@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace RMQ.WebApi.Areas.HelpPage
+namespace RMQ.WebApiDemo.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

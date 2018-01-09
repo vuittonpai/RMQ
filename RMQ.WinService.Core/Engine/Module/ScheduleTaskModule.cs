@@ -57,12 +57,14 @@ namespace RMQ.WinService.Core.Engine.Module
                 task = JsonConvert.DeserializeObject<ScheduleTask>(adapter.StartDequeue());
                 adapter.Disconnect();
 
+                if (task!=null)
                 NLogService.Instance.Info($"{DateTime.Now} Info: GetNextScheduleTask()取得訊息。Queue: {queueName}。Task= {task.ScheduleData}");
 
 
             }
             catch (Exception ex)
             {
+                NLogService.Instance.Error($"{DateTime.Now} Error: GetNextScheduleTask()錯誤。Message: {ex.Message}。StackTrace= {ex.StackTrace}");
                 task = null;
             }
 

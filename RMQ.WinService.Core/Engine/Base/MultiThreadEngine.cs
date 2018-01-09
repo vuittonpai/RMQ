@@ -122,6 +122,7 @@ namespace RMQ.WinService.Core.Engine.Base
             }
             else
             {
+                //有可能無訊息了，也有可能訊息本身有錯誤格式
                 ScheduleTaskModule.NoMessage(_IntervalSec);
                 System.Threading.Thread.Sleep(_IntervalSec * 1000);
             }

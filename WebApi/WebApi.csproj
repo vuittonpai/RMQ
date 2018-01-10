@@ -97,6 +97,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\AuthenticateHelper\AddChallengeOnUnauthorizedResult.cs" />
     <Compile Include="Attributes\AuthenticationAttribute.cs" />
+    <Compile Include="Attributes\FilterIPAttribute.cs" />
     <Compile Include="Controllers\PushNotificationController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Global.asax.cs">
@@ -104,6 +105,8 @@
     </Compile>
     <Compile Include="Attributes\AuthenticateHelper\AuthenticationFailureResult.cs" />
     <Compile Include="Helper\JWTHelper.cs" />
+    <Compile Include="Middleware\AuthenticationHandler.cs" />
+    <Compile Include="Middleware\IPValidationHandler.cs" />
     <Compile Include="Models\AccountArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

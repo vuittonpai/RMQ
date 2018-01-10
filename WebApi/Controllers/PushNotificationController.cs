@@ -13,8 +13,9 @@ namespace WebApi.Controllers
 {
     public class PushNotificationController: ApiController
     {
+        [Authorize]
         //[Authentication]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]
         [Route("PushNotification")]
         public string PushNotification([FromBody] AccountArgs account)

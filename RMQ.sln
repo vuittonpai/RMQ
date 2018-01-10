@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.Web", "RMQ.Web\RMQ.Web.csproj", "{FD3D4D22-876F-4062-8607-DA92559BCE99}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.Module", "RMQ.Module\RMQ.Module.csproj", "{C345E9FE-6EA0-49D6-81EC-1F113A618AF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{01451ED8-76AF-480E-A434-EB37BB0F7797}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.WebAPI", "RMQ.WebAPI\RMQ.WebAPI.csproj", "{D86D5ABB-B24B-4FC4-90A6-184D862AE343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQ.WebApi.Core", "RMQ.WebApi.Core\RMQ.WebApi.Core.csproj", "{0808D5E0-D6C4-439B-B382-2B704361476D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{01451ED8-76AF-480E-A434-EB37BB0F7797}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01451ED8-76AF-480E-A434-EB37BB0F7797}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01451ED8-76AF-480E-A434-EB37BB0F7797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D86D5ABB-B24B-4FC4-90A6-184D862AE343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D86D5ABB-B24B-4FC4-90A6-184D862AE343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D86D5ABB-B24B-4FC4-90A6-184D862AE343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D86D5ABB-B24B-4FC4-90A6-184D862AE343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0808D5E0-D6C4-439B-B382-2B704361476D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0808D5E0-D6C4-439B-B382-2B704361476D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0808D5E0-D6C4-439B-B382-2B704361476D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0808D5E0-D6C4-439B-B382-2B704361476D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -214,7 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RMQ.Core\RMQ.Core.csproj">
-      <Project>{42472B50-D972-4511-9635-ADF0681B868C}</Project>
+      <Project>{42472b50-d972-4511-9635-adf0681b868c}</Project>
       <Name>RMQ.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\RMQ.Module\RMQ.Module.csproj">

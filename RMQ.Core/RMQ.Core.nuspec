@@ -1,0 +1,46 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <!-- The identifier that must be unique within the hosting gallery -->
+    <id>RMQ.Core</id>
+
+    <!-- The package version number that is used when resolving dependencies -->
+    <version>0.1.0</version>
+
+    <!-- Authors contain text that appears directly on the gallery -->
+    <authors>ETMall</authors>
+
+
+    <!-- The icon is used in Visual Studio's package manager UI -->
+    <iconUrl>http://metmall.lab.ehsn.com.tw/favicon.ico</iconUrl>
+
+    <!-- If true, this value prompts the user to accept the license when
+            installing the package. -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+    <!-- Any details about this particular release -->
+    <releaseNotes>The very first pack.</releaseNotes>
+
+    <!-- The description can be used in package manager UI. Note that the
+            nuget.org gallery uses information you add in the portal. -->
+    <description>Core for RabbitMQ access.</description>
+
+    <!-- Copyright information -->
+    <copyright>Copyright ©2018 ETMall Corporation</copyright>
+
+    <!-- Tags appear in the gallery and can be used for tag searches -->
+    <tags>RabbitMQ Queue</tags>
+
+    <!-- Dependencies are automatically installed when the package is installed-->
+    <dependencies>
+      <dependency id="Microsoft.Diagnostics.Tracing.EventSource.Redist" version="1.1.28"  />
+      <dependency id="RabbitMQ.Client" version="5.0.1"  />
+      <dependency id="RMQ.Utility" version="0.1.0"  />
+    </dependencies>
+  </metadata>
+
+  <!---->
+  <files>
+    <file src="bin\Release\RMQ.Core.dll" target="lib" />
+  </files>
+</package>

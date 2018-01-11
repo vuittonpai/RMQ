@@ -45,12 +45,6 @@
     <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
     </Reference>
-    <Reference Include="RMQ.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RMQ.Core.0.1.0\lib\RMQ.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="RMQ.Utility, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RMQ.Utility.0.1.0\lib\RMQ.Utility.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -71,7 +65,16 @@
     <Compile Include="Schedule\Base\ScheduleBase.cs" />
     <Compile Include="Schedule\PushMessageSchedule.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RMQ.Core\RMQ.Core.csproj">
+      <Project>{42472B50-D972-4511-9635-ADF0681B868C}</Project>
+      <Name>RMQ.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RMQ.Utility\RMQ.Utility.csproj">
+      <Project>{5C08EB5D-C7E7-4A54-B031-1C868DB2E0E3}</Project>
+      <Name>RMQ.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

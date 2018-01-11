@@ -15,7 +15,7 @@ namespace WebApi
             // Web API routes
             config.MapHttpAttributeRoutes();
             config.MessageHandlers.Add(new IPValidationHandler());
-            config.MessageHandlers.Add(new AuthenticationHandler());
+            //config.MessageHandlers.Add(new AuthenticationHandler());
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

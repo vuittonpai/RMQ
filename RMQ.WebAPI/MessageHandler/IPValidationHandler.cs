@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace WebApi.Middleware
+namespace RMQ.WebAPI.MessageHandler
 {
     public class IPValidationHandler: DelegatingHandler
     {
